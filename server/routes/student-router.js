@@ -48,14 +48,15 @@ router.put('/:id', (req, res, next) => {
       updatedStudent.email = `${updatedStudent.name.toLowerCase()}@${updatedStudent.campusName.toLowerCase()}.mhia.edu`
       return updatedStudent.save()
         .then(student => {
-          return Campus.find({
+          return Campus.findOrCreate({
             where: {
               name: student.campusName
             }
           })
         })
-        .then(campus => {
-          updatedStudent.setCampus(campus)
+        .spread((campus, created) => {
+          console.log(created)
+          return updatedStudent.setCampus(campus)
         })
     } else {
       return updatedStudent

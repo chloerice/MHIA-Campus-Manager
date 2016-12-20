@@ -3,6 +3,8 @@
 const router = require('express').Router()
 const db = require('../../db')
 const Campus = db.model('campus')
+const Student = db.model('student')
+const Promise = require('bluebird')
 
 router.get('/', (req, res, next) => {
   Campus.findAll()
@@ -27,7 +29,31 @@ router.put('/:id', (req, res, next) => {
   .then(campus => {
     return campus.update(req.body)
   })
-  .then(updatedCampus => res.send(updatedCampus))
+  .then(updatedCampus => {
+    // update all students whose campus was just updated
+    return Student.update({
+      campusName: updatedCampus.name
+    }, {
+      where: {
+        campusId: updatedCampus.id
+      },
+      returning: true
+    })
+  })
+  .spread((numUpdatedStudents, updatedStudentsArr) => {
+    // update all updated students' emails with correct campusName
+    const updatedStudents = updatedStudentsArr.map(student => {
+      return student.update({
+        email: `${student.name.toLowerCase()}@${student.campusName.toLowerCase()}.mhia.edu`
+      })
+    })
+    return Promise.all(updatedStudents)
+  })
+  .then(updatedStudents => {
+    // grab the updated/newly created campus instance and send it
+    const updatedCampus = updatedStudents[0].getCampus()
+    res.send(updatedCampus)
+  })
   .catch(next)
 })
 
