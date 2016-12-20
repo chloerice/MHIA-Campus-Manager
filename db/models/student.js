@@ -1,9 +1,9 @@
 'use strict';
-var Sequelize = require('sequelize')
-var db = require('../')
 
+const Sequelize = require('sequelize')
+const db = require('../index')
 
-module.exports = db.define('student', {
+const Student = db.define('student', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -15,8 +15,24 @@ module.exports = db.define('student', {
       isEmail: true
     }
   },
-  campus: {
+  campusName: {
     type: Sequelize.STRING,
     allowNull: false
   }
+}, {
+  instanceMethods: {
+    getCampusId: function() { // gets the correct campusId value from
+                              // the campusName the student was created with,
+                              // creating the campus if it doesn't exist already
+      const Campus = db.model('campus')
+      return Campus.findOrCreate({
+        where: {
+          name: this.campusName
+        }
+      })
+      .then(campus => campus.id)
+    }
+  }
 })
+
+module.exports = Student
