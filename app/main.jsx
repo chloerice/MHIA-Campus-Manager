@@ -4,11 +4,11 @@ import {render} from 'react-dom'
 import { Provider } from 'react-redux'
 
 import store from './store'
-import Root from './components/Root'
+import MainNav from './components/MainNav'
 
-render (
+render(
   <Provider store={store}>
-    <Root/>
+    <MainNav/>
   </Provider>,
   document.getElementById('main')
 )
