@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem }  from 'react-bootstrap';
+import { Link } from 'react-router';
 
 
 export default class MainNav extends Component {
@@ -15,7 +16,7 @@ export default class MainNav extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem eventKey={1} href="#">Campuses</NavItem>
+            <NavItem eventKey={1} href="#" active>Campuses</NavItem> //TODO make this a dropdown with current campus active
             <NavItem eventKey={2} href="#">Students</NavItem>
           </Nav>
         </Navbar.Collapse>
