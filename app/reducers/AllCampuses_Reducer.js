@@ -1,29 +1,13 @@
-import { dispatch } from 'react-redux'
-import { post } from 'axios'
-import { ADD_CAMPUS } from './constants'
+import { UPDATE_CAMPUSES } from './actions/constants'
 
-// ********* ACTION-CREATOR ********* //
-export function renderCreatedCampus(campus) {
-  return {
-    type: ADD_CAMPUS,
-    campus
-  }
-}
+// in the store, this will be called 'campuses'
+const allCampusesReducer = (state = [], action) => {
+  let nextState
 
-// ********* ASYNC ACTION-CREATOR (DISPATCHER) ********* //
-export function sendCreatedCampus(campus) {
-  post('/campuses', campus)
-  .then(newCampus => dispatch(renderCreatedCampus(newCampus)))
-  .catch(console.error)
-}
-
-// ********* REDUCER ********* //
-let nextState = {}, initialState = {} // in the rootReducer, this will be called 'campuses'
-
-export const allCampusReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_CAMPUS: {
-      nextState = Object.assign({ campus: action.campus }, state)
+
+    case UPDATE_CAMPUSES: {
+      nextState = state.concat(action.campuses)
       break
     }
     // can only remove campus in single campus view, b/c all students must be
@@ -32,3 +16,5 @@ export const allCampusReducer = (state = initialState, action) => {
   }
   return nextState
 }
+
+export default allCampusesReducer

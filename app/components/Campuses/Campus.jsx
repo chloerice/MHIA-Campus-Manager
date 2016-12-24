@@ -1,15 +1,28 @@
-import Student from './Student'
-
-// Returns a div with campus logo and name aligned vertically in a square or
-// horizontally in a jumbotron according to its props
-
+import React, { PropTypes } from 'react'
+import { Col, Image } from 'react-bootstrap'
+import { Link } from 'react-router'
+// Returns a linked div with campus logo and name center aligned vertically
+// that onClick renders the campus' profile page
 const Campus = (props) => {
   return (
-    <div key={props.id}> //TODO replace these divs with <Col X/> components
-      <div><img src={props.image} alt={`${props.name} campus logo`}></img></div>
-      <div><h1>{props.name}</h1></div>
-    </div>
+    <Link to={`/campuses/${props.id}`}>
+      <Col xs={12} sm={6} md={6} lg={6}>
+        <Image
+          src={props.image}
+          alt={`${props.name} campus logo`}
+          rounded={true}
+          responsive={true}
+        />
+        <h2>{props.name}</h2>
+      </Col>
+    </Link>
   )
+}
+
+Campus.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired
 }
 
 export default Campus
