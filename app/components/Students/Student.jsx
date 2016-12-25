@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-// Rendered by
-// Returns student a table row with student name, email and campus (<--linked)
+import { Col } from 'react-bootstrap'
+// Rendered by SingleStudent
+// Returns student a div with student name, email and campus (<--linked)
 
 export const Student = (props) => (
-  <div>
+  <Col>
     <h1>Name: {props.name}</h1>
     <h2>Email: {props.email}</h2>
     <h2>Campus: <Link to={`/campuses/${props.campusId}`}>{props.campusName}</Link></h2>
-  </div>
+  </Col>
 )
 
 Student.propTypes = {

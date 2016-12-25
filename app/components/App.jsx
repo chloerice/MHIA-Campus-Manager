@@ -1,17 +1,18 @@
 import React, { PropTypes } from 'react'
 import { Grid } from 'react-bootstrap'
 
-import Navigation from './UtilityElements/Navigation'
+import Navbar from './UtilityElements/Navbar'
 
 //returns our main application page, whose children will render based on state
-
-export const App = (props) => (
+//     {this.props.children} // whichever component is currently active
+const App = (props) => (
   <Grid fluid={true}>
-    <Navigation campuses={props.campuses}/>
-    {this.props.children} // whichever component is currently active
+    <Navbar campuses={props.campuses}/>
   </Grid>
 )
 
 App.propTypes = {
-  campuses: PropTypes.array.isRequired
+  campuses: PropTypes.object.isRequired
 }
+
+export default App

@@ -51,6 +51,12 @@ export function createCampusThenRerenderAll(campus) {
   .catch(console.error)
 }
 
+export function readCampusesThenRerenderAll() {
+  readingCampuses()
+  .then(campuses => dispatch(renderAllCampuses(campuses)))
+  .catch(console.error)
+}
+
 export function updateCampusThenRerenderIt(campus) {
   updatingCampus(campus)
   .then(updatedCampus => dispatch(renderSingleCampus(updatedCampus)))

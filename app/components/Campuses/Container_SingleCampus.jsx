@@ -1,9 +1,10 @@
-import { connect } from 'redux'
+import { connect } from 'react-redux'
 
 import {
   updateCampusThenRerenderIt,
   deleteCampusThenRerenderAll,
-  updateStudentCampusThenRerenderIt } from '../../reducers/actions/CampusActions'
+  updateStudentCampusThenRerenderIt } from '../../reducers/actions/campuses'
+
 import SingleCampus from './SingleCampus'
 
 const mapStateToProps = (/* receives state, ownProps automatically */) => {

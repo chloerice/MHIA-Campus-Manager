@@ -1,29 +1,24 @@
-import { connect } from 'redux'
+import { connect } from 'react-redux'
 
-import { createCampusThenRerenderAll } from '../../reducers/actions/CampusActions'
+import { createCampusThenRerenderAll } from '../../reducers/actions/campuses'
 import Campuses from './Campuses'
 
-const mapStateToProps = (/* receives state, ownProps automatically */) => {
+const mapStateToProps = (state) => {
   return {
-    open: this.state.open,
-    isLoading: this.state.isLoading,
-    campuses: this.state.campuses
+    campuses: state.campuses
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const onClick = () => {
-    return { open: !ownProps.open }
-  }
+const mapDispatchToProps = (dispatch) => {
 
   return {
-    toggleForm: () => dispatch(onClick()),
     handleSubmit: (event) => {
+      event.preventDefault()
       const campus = {
-        name: event.target.name,
+        name: this.state.name,
         image: this.state.image
       }
-      event.preventDefault()
+
       return dispatch(createCampusThenRerenderAll(campus)
     )}
   }

@@ -1,7 +1,7 @@
 import { UPDATE_STUDENTS } from './actions/constants'
 
 // in the store, this will be called 'students'
-export const allStudentsReducer = (state = [], action) => {
+const allStudentsReducer = (state = [], action) => {
   let nextState
 
   switch (action.type) {
@@ -15,3 +15,5 @@ export const allStudentsReducer = (state = [], action) => {
   }
   return nextState
 }
+
+export default allStudentsReducer

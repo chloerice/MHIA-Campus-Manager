@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux'
 
-import campuses from './AllCampuses_Reducer'
-import currentCampus from './SingleCampus_Reducer'
-import students from './AllStudents_Reducer'
-import currentStudent from './SingleStudent_Reducer'
+import campuses from './campuses'
+import currentCampus from './currentCampus'
+import students from './students'
+import currentStudent from './currentStudent'
 
 const rootReducer = combineReducers({
-  campuses, currentCampus, students, currentStudent
+  campuses,
+  currentCampus,
+  students,
+  currentStudent
 })
 
 export default rootReducer

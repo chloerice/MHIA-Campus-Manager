@@ -1,6 +1,6 @@
 import { dispatch } from 'react-redux'
 import axios from 'axios'
-import { UPDATE_STUDENTS, UPDATE_STUDENT } from '../constants'
+import { UPDATE_STUDENTS, UPDATE_STUDENT } from './constants'
 
 // ********* ACTION-CREATORS ********* //
 export function renderAllStudents(students) {
@@ -17,7 +17,7 @@ export function renderSingleStudent(student) {
   }
 }
 
-// ********* ASYNC ACTION-CREATORS (DISPATCHERS) ********* //
+// ********* ASYNC (CRUD) ACTION-CREATORS (DISPATCHERS) ********* //
 
 // CRUD Promise-returning Helper Functions
 function creatingStudent(studentObj) {
@@ -40,6 +40,12 @@ function deletingStudent(studentObj) {
 export function createStudentThenRerenderAll(student) {
   axios.all([creatingStudent(student), readingStudents()])
   .spread((newStudent, students) => dispatch(renderAllStudents(students)))
+  .catch(console.error)
+}
+
+export function readStudentsThenRerenderAll() {
+  readingStudents()
+  .then(students => dispatch(renderAllStudents(students)))
   .catch(console.error)
 }
 

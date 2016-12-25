@@ -1,4 +1,4 @@
-import { connect } from 'redux'
+import { connect } from 'react-redux'
 
 //import dispatchers needed from the SingleStudent_Reducer
 import Students from './Students'

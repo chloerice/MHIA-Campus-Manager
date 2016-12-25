@@ -1,8 +1,7 @@
-import { connect } from 'redux'
+import { connect } from 'react-redux'
 
 //import dispatchers needed from the SingleStudent_Reducer
-import Student from './Student'
-import EditStudentInfo from './Form_EditStudentInfo'
+import Student from './SingleStudent'
 
 const mapStateToProps = (/* receives state, ownProps automatically */) => {
   return {
@@ -16,6 +15,6 @@ const mapDispatchToProps = (/* receives dispatch, ownProps automatically */) => 
   }
 }
 
-const SingleStudent = connect(mapStateToProps, mapDispatchToProps)(Student, EditStudentInfo)
+const SingleStudent = connect(mapStateToProps, mapDispatchToProps)(Student)
 
 export default SingleStudent
