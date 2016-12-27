@@ -1,20 +1,25 @@
 import { connect } from 'react-redux'
 
-//import dispatchers needed from the SingleStudent_Reducer
-import Students from '../components/Students/Students'
+import { receiveCampus } from '../reducers/actions/campuses'
+import { receiveStudent } from '../reducers/actions/students'
 
-const mapStateToProps = (/* receives state, ownProps automatically */) => {
+import AllStudents from '../components/students/AllStudents'
+
+const mapStateToProps = (state) => {
   return {
-    //key value pairs of prop values needed
+    students: state.students,
+    campuses: state.campuses,
+    loading: state.loading
   }
 }
 
-const mapDispatchToProps = (/* receives dispatch, ownProps automatically */) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    //key value pairs of dispatchers needed
+    handleClick: (object, objectType) => {
+      if (objectType === 'campus') return dispatch(receiveCampus(object))
+      else return dispatch(receiveStudent(object))
+    }
   }
 }
 
-const AllStudents = connect(mapStateToProps, mapDispatchToProps)(Students)
-
-export default AllStudents
+export default connect(mapStateToProps, mapDispatchToProps)(AllStudents)

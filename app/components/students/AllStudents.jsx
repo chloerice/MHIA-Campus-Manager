@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react'
 
 import StudentsJumbotron from './StudentsJumbotron'
 import StudentTable from '../utilities/StudentTable'
-import CreateStudent from './Form_CreateStudent'
+import CreateNewStudent from '../utilities/CreateNew_Panel'
 
 // ** Rendered by AllStudents container ** //
 
-const Students = (props) => (
+const AllStudents = (props) => (
   <div>
     <StudentsJumbotron campuses={props.campuses} />
     <StudentTable
@@ -14,14 +14,20 @@ const Students = (props) => (
       campuses={props.campuses}
       showCampusName={true}
       handleClick={props.handleClick} />
-    <CreateStudent />
+    <CreateNewStudent
+      campuses={props.campuses}
+      loading={props.loading}
+      instance={'Student'}
+      dispatch={props.dispatch} />
   </div>
 )
 
-Students.propTypes = {
+AllStudents.propTypes = {
   students: PropTypes.array.isRequired, // an array of student objects
   campuses: PropTypes.array.isRequired, // an array of campus objects
+  loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 
-export default Students
+export default AllStudents

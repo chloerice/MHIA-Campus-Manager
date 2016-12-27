@@ -7,7 +7,8 @@ import AllCampuses from '../components/campuses/AllCampuses'
 
 const mapStateToProps = (state) => {
   return {
-    campuses: state.campuses
+    campuses: state.campuses,
+    loading: state.loading
   }
 }
 

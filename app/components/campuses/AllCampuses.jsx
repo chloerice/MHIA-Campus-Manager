@@ -17,12 +17,18 @@ const AllCampuses = (props) => (
         })
       }
     </Row>
-    <CreateNewCampusPanel />
+    <CreateNewCampusPanel
+      campuses={props.campuses}
+      instance={'Campus'}
+      loading={props.loading}
+      dispatch={props.dispatch} />
   </div>
 )
 
 AllCampuses.propTypes = {
   campuses: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 

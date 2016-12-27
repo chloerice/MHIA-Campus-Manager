@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Form, FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap'
 import { createCampusThenRerenderAll } from '../../reducers/actions/campuses'
 
-export default class CreateNewCampusForm extends Component {
+class CreateNewCampusForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -99,3 +99,5 @@ CreateNewCampusForm.propTypes = {
   loading: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
 }
+
+export default CreateNewCampusForm

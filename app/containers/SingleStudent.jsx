@@ -1,17 +1,31 @@
 import { connect } from 'react-redux'
 
-//import dispatchers needed from the SingleStudent_Reducer
-import Student from './SingleStudent'
+import {
+  receiveStudent,
+  updateStudentThenRerenderIt,
+  deleteStudentThenRerenderAll } from '../reducers/actions/students'
 
-const mapStateToProps = (/* receives state, ownProps automatically */) => {
+import Student from '../components/students/SingleStudent'
+
+const mapStateToProps = (state) => {
   return {
-    //key value pairs of prop values needed
+    currentStudent: state.currentStudent
   }
 }
 
-const mapDispatchToProps = (/* receives dispatch, ownProps automatically */) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const student = ownProps.currentStudent
   return {
-    //key value pairs of dispatchers needed
+    handleClick: (object, objectType) => {
+      if (objectType === 'campus') return dispatch(receiveStudent(object))
+      else return dispatch(receiveStudent(object))
+    },
+    handleUpdate: () => {
+      dispatch(updateStudentThenRerenderIt(student))
+    },
+    handleDelete: () => {
+      dispatch(deleteStudentThenRerenderAll(student))
+    }
   }
 }
 
