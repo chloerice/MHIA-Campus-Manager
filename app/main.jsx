@@ -1,12 +1,12 @@
 'use strict'
 import React from 'react'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
 import store from './store'
 
-import { readCampusesThenRenderAll } from './reducers/actions/campuses'
-import { readStudentsThenRenderAll } from './reducers/actions/students'
+import { readCampusesThenRenderAll } from './reducers/actions/receivingCampuses'
+import { readStudentsThenRenderAll } from './reducers/actions/receivingStudents'
 
 import App from './components/App'
 import AllCampuses from './containers/AllCampuses'
@@ -14,8 +14,16 @@ import SingleCampus from './containers/SingleCampus'
 import AllStudents from './containers/AllStudents'
 import SingleStudent from './containers/SingleStudent'
 
-const onEnterStudents = () => store.dispatch( readStudentsThenRenderAll() )
-const onEnterCampuses = () => store.dispatch( readCampusesThenRenderAll() )
+
+// const onAppEnter = function() {
+//
+// }
+const onEnterStudents = function() {
+  store.dispatch(readStudentsThenRenderAll())
+}
+const onEnterCampuses = function() {
+  store.dispatch(readCampusesThenRenderAll())
+}
 
 render(
   <Provider store={store}>

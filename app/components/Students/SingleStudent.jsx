@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Row } from 'react-bootstrap'
 
-import EditCampusInfo from './Form_EditCampusInfo'
+import EditStudentInfo from './Form_EditStudentInfo'
 import Student from './Student'
 
 const SingleStudent = (props) => (
@@ -10,7 +10,7 @@ const SingleStudent = (props) => (
       student={props.currentStudent}
       campuses={props.campuses}
       handleClick={props.handleClick} />
-    <EditCampusInfo
+    <EditStudentInfo
       handleUpdate={props.handleUpdate}
       handleDelete={props.handleDelete} />
   </Row>

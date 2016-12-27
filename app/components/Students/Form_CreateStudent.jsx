@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Form, FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap'
-import { createStudentThenRerenderAll } from '../../reducers/actions/studentes'
+import { createStudentThenRerenderAll } from '../../reducers/actions/receivingStudents'
 
 class CreateNewStudentForm extends Component {
   constructor(props) {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   receiveStudent,
   updateStudentThenRerenderIt,
-  deleteStudentThenRerenderAll } from '../reducers/actions/students'
+  deleteStudentThenRerenderAll } from '../reducers/actions/receivingStudents'
 
 import Student from '../components/students/SingleStudent'
 

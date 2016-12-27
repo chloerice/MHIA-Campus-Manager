@@ -5,7 +5,7 @@ import { Row } from 'react-bootstrap'
 
 //components
 import Campus from './Campus'
-import CreateNewCampusPanel from './CreateNewCampusPanel'
+import CreateNewCampus from '../utilities/CreateNew_Panel'
 
 const AllCampuses = (props) => (
   <div>
@@ -17,7 +17,7 @@ const AllCampuses = (props) => (
         })
       }
     </Row>
-    <CreateNewCampusPanel
+    <CreateNewCampus
       campuses={props.campuses}
       instance={'Campus'}
       loading={props.loading}

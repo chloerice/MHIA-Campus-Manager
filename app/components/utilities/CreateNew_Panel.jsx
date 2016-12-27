@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Panel, Button } from 'react-bootstrap'
 
-import CreateNewCampusForm from '../components/campuses/Form_CreateNewCampus'
-import CreateNewStudentForm from '../components/students/Form_CreateStudent'
+import CreateNewCampusForm from '../campuses/Form_CreateNewCampus'
+import CreateNewStudentForm from '../students/Form_CreateStudent'
 // Rendered by AllCampuses and AllStudents
 // Returns a 'primary' button with onClick that toggles the panel housing the form
 

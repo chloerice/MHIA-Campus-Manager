@@ -1,22 +1,18 @@
 import axios from 'axios'
-import { REQUEST_STUDENTS,
-         RECEIVE_STUDENTS,
-         CREATE_STUDENT,
-         REQUEST_STUDENT,
-         RECEIVE_STUDENT,
-         UPDATE_STUDENT,
-         DELETE_STUDENT } from './constants'
+import { RECEIVE_STUDENTS, RECEIVE_STUDENT } from './constants'
+
+import { requestStudents,
+         createStudent,
+         updateStudent,
+         deleteStudent,
+         readingStudents,
+         creatingStudent,
+         updatingStudent,
+         deletingStudent } from './loadingStudents'
 
 // ********* ACTION-CREATORS ********* //
 
-//AllStudents__________________________________
-export function requestStudents() {
-  return {
-    type: REQUEST_STUDENTS,
-    loading: true
-  }
-}
-
+//_____________AllStudents_____________
 export function receiveStudents(students) {
   return {
     type: RECEIVE_STUDENTS,
@@ -24,22 +20,7 @@ export function receiveStudents(students) {
     students
   }
 }
-
-//SingleStudent__________________________________
-export function createStudent() {
-  return {
-    type: CREATE_STUDENT,
-    loading: true
-  }
-}
-
-export function requestStudent() {
-  return {
-    type: REQUEST_STUDENT,
-    loading: true
-  }
-}
-
+//_____________SingleStudent_____________
 export function receiveStudent(student) {
   return {
     type: RECEIVE_STUDENT,
@@ -48,40 +29,8 @@ export function receiveStudent(student) {
   }
 }
 
-export function updateStudent() {
-  return {
-    type: UPDATE_STUDENT,
-    loading: true
-  }
-}
+// ********* ASYNC ACTION-CREATORS (THUNKS) ********* //
 
-export function deleteStudent() {
-  return {
-    type: DELETE_STUDENT,
-    loading: true
-  }
-}
-
-// ********* ASYNC ACTION-CREATORS ********* //
-
-// CRUD Promise-returning Helper Functions
-function creatingStudent(studentObj) {
-  return axios.post('/api/students', studentObj)
-}
-
-function readingStudents() {
-  return axios.get('/api/students')
-}
-
-function updatingStudent(studentObj) {
-  return axios.put(`/api/students/${studentObj.id}`)
-}
-
-function deletingStudent(studentObj) {
-  return axios.delete(`/api/students/${studentObj.id}`)
-}
-
-//THUNKS
 export function createStudentThenRerenderAll(student) {
   return dispatch => {
     dispatch(createStudent())

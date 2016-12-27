@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
-import { receiveCampus } from '../reducers/actions/campuses'
-import { receiveStudent } from '../reducers/actions/students'
+import { receiveCampus } from '../reducers/actions/receivingCampuses'
+import { receiveStudent } from '../reducers/actions/receivingStudents'
 
 import AllCampuses from '../components/campuses/AllCampuses'
 
