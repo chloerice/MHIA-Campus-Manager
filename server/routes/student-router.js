@@ -2,6 +2,7 @@
 
 const router = require('express').Router()
 const db = require('../../db')
+
 const Student = db.model('student')
 const Campus = db.model('campus')
 
@@ -16,19 +17,17 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Student.create({
     name: req.body.name,
-    email: req.body.email,
     campusName: req.body.campusName,
-    campus: {
-      name: req.body.campusName
-    }
-  }, {
-    include: [Campus]
   })
-  .then(student => res.status(201).send(student))
+  .then(pendingStudent => {
+    Campus.find({ where: { name: pendingStudent.campusName } })
+    .then(campus => pendingStudent.setCampus(campus))
+  })
+  .then(newStudent => res.status(201).send(newStudent))
   .catch(next)
 })
 
-// read student by ID
+// read student by ID //
 router.get('/:id', (req, res, next) => {
   Student.findById(req.params.id)
   .then(student => res.send(student))
@@ -37,32 +36,13 @@ router.get('/:id', (req, res, next) => {
 
 // update student by ID
 router.put('/:id', (req, res, next) => {
-  const newCampus = req.body.campusName || false
-
   Student.findById(req.params.id)
-  .then(student => {
-    return student.update(req.body)
+  .then(student => student.update(req.body))
+  .then(pendingStudent => {
+    Campus.find({ where: { name: pendingStudent.campusName } })
+    .then(campus => pendingStudent.setCampus(campus))
   })
-  .then(updatedStudent => {
-    if (newCampus) {
-      updatedStudent.email = `${updatedStudent.name.toLowerCase()}@${updatedStudent.campusName.toLowerCase()}.mhia.edu`
-      return updatedStudent.save()
-        .then(student => {
-          return Campus.findOrCreate({
-            where: {
-              name: student.campusName
-            }
-          })
-        })
-        .spread((campus, created) => {
-          console.log(created)
-          return updatedStudent.setCampus(campus)
-        })
-    } else {
-      return updatedStudent
-    }
-  })
-  .then(fullyUpdatedStudent => res.send(fullyUpdatedStudent))
+  .then(updatedStudent => res.send(updatedStudent))
   .catch(next)
 })
 

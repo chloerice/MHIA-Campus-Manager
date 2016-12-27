@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
 import { Panel, Button } from 'react-bootstrap'
 
 import CreateNewCampusForm from './Form_CreateNewCampus'
@@ -17,7 +16,8 @@ export class CreateNewCampusPanel extends Component {
     this.toggleForm = this.toggleForm.bind(this)
   }
 
-  toggleForm() {
+  toggleForm(event) {
+    event.preventDefault()
     this.setState({ open: !this.state.open })
   }
 

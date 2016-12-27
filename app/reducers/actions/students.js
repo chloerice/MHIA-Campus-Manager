@@ -1,62 +1,125 @@
-import { dispatch } from 'react-redux'
 import axios from 'axios'
-import { UPDATE_STUDENTS, UPDATE_STUDENT } from './constants'
+import { REQUEST_STUDENTS,
+         RECEIVE_STUDENTS,
+         CREATE_STUDENT,
+         REQUEST_STUDENT,
+         RECEIVE_STUDENT,
+         UPDATE_STUDENT,
+         DELETE_STUDENT } from './constants'
 
 // ********* ACTION-CREATORS ********* //
-export function renderAllStudents(students) {
+
+//AllStudents__________________________________
+export function requestStudents() {
   return {
-    type: UPDATE_STUDENTS,
+    type: REQUEST_STUDENTS,
+    loading: true
+  }
+}
+
+export function receiveStudents(students) {
+  return {
+    type: RECEIVE_STUDENTS,
+    loading: false,
     students
   }
 }
 
-export function renderSingleStudent(student) {
+//SingleStudent__________________________________
+export function createStudent() {
   return {
-    type: UPDATE_STUDENT,
+    type: CREATE_STUDENT,
+    loading: true
+  }
+}
+
+export function requestStudent() {
+  return {
+    type: REQUEST_STUDENT,
+    loading: true
+  }
+}
+
+export function receiveStudent(student) {
+  return {
+    type: RECEIVE_STUDENT,
+    loading: false,
     currentStudent: student
   }
 }
 
-// ********* ASYNC (CRUD) ACTION-CREATORS (DISPATCHERS) ********* //
+export function updateStudent() {
+  return {
+    type: UPDATE_STUDENT,
+    loading: true
+  }
+}
+
+export function deleteStudent() {
+  return {
+    type: DELETE_STUDENT,
+    loading: true
+  }
+}
+
+// ********* ASYNC ACTION-CREATORS ********* //
 
 // CRUD Promise-returning Helper Functions
 function creatingStudent(studentObj) {
-  return axios.post('api/students', studentObj)
+  return axios.post('/api/students', studentObj)
 }
 
 function readingStudents() {
-  return axios.get('api/students')
+  return axios.get('/api/students')
 }
 
 function updatingStudent(studentObj) {
-  return axios.put(`api/students/${studentObj.id}`)
+  return axios.put(`/api/students/${studentObj.id}`)
 }
 
 function deletingStudent(studentObj) {
-  return axios.delete(`api/students/${studentObj.id}`)
+  return axios.delete(`/api/students/${studentObj.id}`)
 }
 
-// Dispatchers
+//THUNKS
 export function createStudentThenRerenderAll(student) {
-  axios.all([creatingStudent(student), readingStudents()])
-  .spread((newStudent, students) => dispatch(renderAllStudents(students)))
-  .catch(console.error)
+  return dispatch => {
+    dispatch(createStudent())
+
+    return axios.all([creatingStudent(student), readingStudents()])
+      .then(res => res.data)
+      .spread((newStudent, students) => dispatch(receiveStudents(students)))
+      .catch(console.error)
+  }
 }
 
-export function readStudentsThenRerenderAll() {
-  readingStudents()
-  .then(students => dispatch(renderAllStudents(students)))
-  .catch(console.error)
+export function readStudentsThenRenderAll() {
+  return dispatch => {
+    dispatch(requestStudents())
+
+    return readingStudents()
+      .then(students => dispatch(receiveStudents(students)))
+      .catch(console.error)
+  }
 }
 
 export function updateStudentThenRerenderIt(student) {
-  updatingStudent(student)
-  .then(updatedStudent => dispatch(renderSingleStudent(updatedStudent)))
-  .catch(console.error)
+  return dispatch => {
+    dispatch(updateStudent())
+
+    return updatingStudent(student)
+      .then(updatedStudent => dispatch(receiveStudent(updatedStudent)))
+      .catch(console.error)
+  }
 }
 
 export function deleteStudentThenRerenderAll(student) {
-  axios.all([deletingStudent(student), readingStudents()])
-  .spread((deletedStudent, students) => dispatch(renderAllStudents(students)))
-  .catch(console.error)
+  return dispatch => {
+    dispatch(deleteStudent())
+
+    return axios.all([deletingStudent(student), readingStudents()])
+      .then(res => res.data)
+      .spread((deletedStudent, students) => dispatch(receiveStudents(students)))
+      .catch(console.error)
+  }
 }

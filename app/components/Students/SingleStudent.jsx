@@ -1,17 +1,19 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
 import { Row } from 'react-bootstrap'
 
+import EditCampusInfo from './Form_EditCampusInfo'
 import Student from './Student'
 
 const SingleStudent = (props) => (
-  <Student
-    name={props.currentStudent.name}
-  />
+  <Row>
+    <Student student={props.currentStudent} />
+    <EditCampusInfo />
+  </Row>
 )
 
 SingleStudent.propTypes = {
-  currentStudent: PropTypes.object.isRequired
+  currentStudent: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired
 }
 
 export default SingleStudent

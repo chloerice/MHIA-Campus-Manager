@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 //import dispatchers needed from the SingleStudent_Reducer
-import Students from './Students'
+import Students from '../components/Students/Students'
 
 const mapStateToProps = (/* receives state, ownProps automatically */) => {
   return {

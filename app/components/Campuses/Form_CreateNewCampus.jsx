@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { render } from 'react-dom'
 import { Form, FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap'
+import { createCampusThenRerenderAll } from '../../reducers/actions/campuses'
 
 export default class CreateNewCampusForm extends Component {
   constructor(props) {
@@ -10,12 +10,11 @@ export default class CreateNewCampusForm extends Component {
       image: {
         url: '',
         name: ''
-      },
-      isLoading: false
+      }
     }
 
     this.handleChange = this.handleChange.bind(this)
-    this.updateStateAndHandleSubmit = this.updateStateAndHandleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
   }
 
@@ -36,13 +35,17 @@ export default class CreateNewCampusForm extends Component {
     this.setState(newState)
   }
 
-  updateStateAndHandleSubmit(event) {
-    this.setState({isLoading: true})
-    this.props.handleSubmit(event)
+  handleSubmit(event) {
+    event.preventDefault();
+    const campus = {
+      name: this.state.name,
+      image: this.state.image.url
+    }
+    this.props.dispatch(createCampusThenRerenderAll(campus))
   }
 
   render() {
-    const isLoading = this.state.isLoading
+    const loading = this.props.loading
 
     return (
       <Form inline>
@@ -82,8 +85,8 @@ export default class CreateNewCampusForm extends Component {
         <Button
           type="submit"
           bsStyle="primary"
-          onSubmit={this.updateStateAndHandleSubmit}>
-          { isLoading ?
+          onSubmit={this.handleSubmit}>
+          { loading ?
             `Saving new campus ${this.state.name}...` : 'Save New Campus'}
         </Button>
       </Form>
@@ -92,5 +95,7 @@ export default class CreateNewCampusForm extends Component {
 }
 
 CreateNewCampusForm.propTypes = {
+  dispatch: PropTypes.func,
+  loading: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
 }

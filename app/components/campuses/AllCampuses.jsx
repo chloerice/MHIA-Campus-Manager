@@ -7,17 +7,12 @@ import { Row } from 'react-bootstrap'
 import Campus from './Campus'
 import CreateNewCampusPanel from './CreateNewCampusPanel'
 
-const Campuses = (props) => (
+const AllCampuses = (props) => (
   <div>
     <Row>
       { props.campuses.map(campus => {
           return (
-            <Campus
-              key={campus.id}
-              id={campus.id}
-              name={campus.name}
-              image={campus.image}
-            />
+            <Campus campus={campus} handleClick={props.handleClick} />
           )
         })
       }
@@ -26,8 +21,9 @@ const Campuses = (props) => (
   </div>
 )
 
-Campuses.propTypes = {
+AllCampuses.propTypes = {
   campuses: PropTypes.array.isRequired,
+  handleClick: PropTypes.func.isRequired
 }
 
-export default Campuses
+export default AllCampuses

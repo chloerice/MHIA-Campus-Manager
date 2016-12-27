@@ -3,32 +3,29 @@ import React from 'react'
 import {render} from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
-
 import store from './store'
 
-//CONTAINER COMPONENTS
+import { readCampusesThenRenderAll } from './reducers/actions/campuses'
+import { readStudentsThenRenderAll } from './reducers/actions/students'
+
 import App from './components/App'
-import AllCampuses from './components/Campuses/Container_AllCampuses'
-import SingleCampus from './components/Campuses/Container_SingleCampus'
-import AllStudents from './components/Students/Container_AllStudents'
-import SingleStudent from './components/Students/Container_SingleStudent'
+import AllCampuses from './containers/AllCampuses'
+import SingleCampus from './containers/SingleCampus'
+import AllStudents from './containers/AllStudents'
+import SingleStudent from './containers/SingleStudent'
 
-// //ASYNC ACTION CREATORS
-// import { readCampusesThenRerenderAll } from './reducers/actions/campuses'
-// import { readStudentsThenRerenderAll } from './reducers/actions/students'
-
-// const onEnterCampuses = () => store.dispatch(readCampusesThenRerenderAll())
-// const onEnterStudents = () => store.dispatch(readStudentsThenRerenderAll())
+const onEnterStudents = () => store.dispatch( readStudentsThenRenderAll() )
+const onEnterCampuses = () => store.dispatch( readCampusesThenRenderAll() )
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRedirect to="/campuses"/>
-        <Route path="campuses" component={AllCampuses} />
+        <Route path="campuses" component={AllCampuses} onEnter={onEnterCampuses}/>
           <Route path=":id" component={SingleCampus} />
-        <Route path="students" component={AllStudents} />
+        <Route path="students" component={AllStudents} onEnter={onEnterStudents} />
           <Route path=":id" component={SingleStudent} />
+        <IndexRedirect to="/campuses"/>
       </Route>
     </Router>
   </Provider>,

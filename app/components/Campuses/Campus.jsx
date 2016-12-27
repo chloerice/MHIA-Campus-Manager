@@ -4,25 +4,25 @@ import { Link } from 'react-router'
 // Returns a linked div with campus logo and name center aligned vertically
 // that onClick renders the campus' profile page
 const Campus = (props) => {
+  const campus = props.campus
   return (
-    <Link to={`/campuses/${props.id}`}>
+    <Link to={`/campuses/${campus.id}`} onClick={() => props.handleClick(campus, 'campus')}>
       <Col xs={12} sm={6} md={6} lg={6}>
         <Image
-          src={props.image}
-          alt={`${props.name} campus logo`}
+          src={campus.image}
+          alt={`${campus.name} campus logo`}
           rounded={true}
           responsive={true}
         />
-        <h2>{props.name}</h2>
+      <h2>{campus.name}</h2>
       </Col>
     </Link>
   )
 }
 
 Campus.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired
+  campus: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired
 }
 
 export default Campus

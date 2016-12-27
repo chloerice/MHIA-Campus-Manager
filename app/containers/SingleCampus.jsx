@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import {
   updateCampusThenRerenderIt,
   deleteCampusThenRerenderAll,
-  updateStudentCampusThenRerenderIt } from '../../reducers/actions/campuses'
+  updateStudentCampusThenRerenderIt } from '../reducers/actions/campuses'
 
-import SingleCampus from './SingleCampus'
+import SingleCampus from '../components/campuses/SingleCampus'
 
-const mapStateToProps = (/* receives state, ownProps automatically */) => {
+const mapStateToProps = (state) => {
   return {
-    students: this.state.students,
-    currentCampus: this.state.currentCampus
+    students: state.students,
+    currentCampus: state.currentCampus,
+    currentStudent: state.currentStudent
   }
 }
 
@@ -24,12 +25,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleDelete: () => {
       dispatch(deleteCampusThenRerenderAll(campus))
     },
-    handleReassign: () => {
+    handleReassignment: () => {
       dispatch(updateStudentCampusThenRerenderIt(student, campus))
     }
   }
 }
 
-const SingleCampusContainer = connect(mapStateToProps, mapDispatchToProps)(SingleCampus)
-
-export default SingleCampusContainer
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCampus)
