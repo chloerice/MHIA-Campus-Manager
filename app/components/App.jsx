@@ -8,7 +8,7 @@ import Navbar from './utilities/Navbar'
 const App = (props) => (
   <Grid fluid={true}>
     <Navbar campuses={props.campuses}/>
-    {props.children && React.cloneElement(props.children)}
+    { props.children && React.cloneElement(props.children, props) }
   </Grid>
 )
 

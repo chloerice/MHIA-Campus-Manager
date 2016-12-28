@@ -38,9 +38,8 @@ export function createCampusThenRerenderAll(campus) {
   return dispatch => {
     dispatch(createCampus())
 
-    return axios.all([creatingCampus(campus), readingCampuses()])
-      .then(res => res.data)
-      .spread((newCampus, campuses) => dispatch(receiveCampuses(campuses)))
+    return Promise.all([creatingCampus(campus), readingCampuses()])
+      .then(([newCampus, campuses]) => dispatch(receiveCampuses(campuses)))
       .catch(console.error)
   }
 }
@@ -69,11 +68,10 @@ export function updateStudentCampusThenRerenderIt(student, campus) {
   return dispatch => {
     dispatch(updateStudent())
 
-  return axios.all([updatingStudent(student), readingCampus(campus), readingStudents()])
-    .then(res => res.data)
-    .spread((updatedStudent, campusToRender, updatedStudents) =>  {
-        dispatch(receiveStudents(updatedStudents))
-        dispatch(receiveCampus(campusToRender))
+  return Promise.all([updatingStudent(student), readingCampus(campus), readingStudents()])
+    .then(([updatedStudent, campusToRender, updatedStudents]) =>  {
+      dispatch(receiveStudents(updatedStudents))
+      dispatch(receiveCampus(campusToRender))
     })
     .catch(console.error)
   }
@@ -83,9 +81,8 @@ export function deleteCampusThenRerenderAll(campus) {
   return dispatch => {
     dispatch(deleteCampus())
 
-    return axios.all([deletingCampus(campus), readingCampuses()])
-      .then(res => res.data)
-      .spread((deletedCampus, campuses) => dispatch(receiveCampuses(campuses)))
+    return Promise.all([deletingCampus(campus), readingCampuses()])
+      .then(([deletedCampus, campuses]) => dispatch(receiveCampuses(campuses)))
       .catch(console.error)
   }
 }

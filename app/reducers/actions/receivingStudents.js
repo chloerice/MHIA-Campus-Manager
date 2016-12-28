@@ -36,8 +36,7 @@ export function createStudentThenRerenderAll(student) {
     dispatch(createStudent())
 
     return axios.all([creatingStudent(student), readingStudents()])
-      .then(res => res.data)
-      .spread((newStudent, students) => dispatch(receiveStudents(students)))
+      .then(([newStudent, students]) => dispatch(receiveStudents(students)))
       .catch(console.error)
   }
 }
@@ -66,9 +65,8 @@ export function deleteStudentThenRerenderAll(student) {
   return dispatch => {
     dispatch(deleteStudent())
 
-    return axios.all([deletingStudent(student), readingStudents()])
-      .then(res => res.data)
-      .spread((deletedStudent, students) => dispatch(receiveStudents(students)))
+    return Promise.all([deletingStudent(student), readingStudents()])
+      .then(([deletedStudent, students]) => dispatch(receiveStudents(students)))
       .catch(console.error)
   }
 }

@@ -44,16 +44,21 @@ export function deleteCampus() {
 // CRUD Promise-returning Helper Functions for async action-creators
 export function readingCampuses() {
   return axios.get('/api/campuses')
+    .then(res => res.data)
 }
 export function readingCampus(campusObj) {
   return axios.get(`/api/campuses/${campusObj.id}`)
+    .then(res => res.data)
 }
 export function creatingCampus(campusObj) {
   return axios.post('/api/campuses', campusObj)
+    .then(res => res.data)
 }
 export function updatingCampus(campusObj) {
   return axios.put(`/api/campuses/${campusObj.id}`)
+    .then(res => res.data)
 }
 export function deletingCampus(campusObj) {
   return axios.delete(`/api/campuses/${campusObj.id}`)
+    .then(res => res.data)
 }

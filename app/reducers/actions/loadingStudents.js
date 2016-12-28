@@ -44,13 +44,17 @@ export function deleteStudent() {
 // CRUD Promise-returning Helper Functions for async action-creators
 export function readingStudents() {
   return axios.get('/api/students')
+    .then(res => res.data)
 }
 export function creatingStudent(studentObj) {
  return axios.post('/api/students', studentObj)
+  .then(res => res.data)
 }
 export function updatingStudent(studentObj) {
  return axios.put(`/api/students/${studentObj.id}`)
+  .then(res => res.data)
 }
 export function deletingStudent(studentObj) {
  return axios.delete(`/api/students/${studentObj.id}`)
+  .then(res => res.data)
 }
