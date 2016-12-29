@@ -70,11 +70,11 @@ class CreateNewCampusForm extends Component {
             placeholder="Select to preview logo"
             onChange={this.handleChange}
           >
-            <option value="/public/img/earth.svg">Earth</option>
-            <option value="/public/img/jupiter.svg">Jupiter</option>
-            <option value="/public/img/neptune.svg">Neptune</option>
-            <option value="/public/img/saturn.svg">Saturn</option>
-            <option value="/public/img/venus.svg">Venus</option>
+            <option value="/img/earth.svg">Earth</option>
+            <option value="/img/jupiter.svg">Jupiter</option>
+            <option value="/img/neptune.svg">Neptune</option>
+            <option value="/img/saturn.svg">Saturn</option>
+            <option value="/img/venus.svg">Venus</option>
           </FormControl>
           <Image
             thumbnail={true}

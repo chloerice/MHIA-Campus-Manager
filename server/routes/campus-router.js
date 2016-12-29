@@ -1,7 +1,7 @@
 'use strict'
 
 const router = require('express').Router()
-const db = require('../../db')
+const db = require('../db')
 const Campus = db.model('campus')
 const Student = db.model('student')
 const Promise = require('bluebird')

@@ -1,9 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Row } from 'react-bootstrap'
 
-//actions
-
-//components
 import Campus from './Campus'
 import CreateNewCampus from '../utilities/CreateNew_Panel'
 

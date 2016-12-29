@@ -1,4 +1,5 @@
 'use strict'
+
 const api = require('express').Router()
 
 api.use('/students', require('./routes/student-router'))

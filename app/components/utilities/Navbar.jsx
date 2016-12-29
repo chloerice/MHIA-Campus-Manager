@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link, IndexLink } from 'react-router';
 
 const NavBar = (props) => (
-  <Navbar inverse collapseOnSelect fixedTop>
+  <Navbar inverse={true} collapseOnSelect={true} fixedTop={true}>
     <Navbar.Header>
       <Navbar.Brand>
         <a href="#">MHIA Campus Manager</a>
