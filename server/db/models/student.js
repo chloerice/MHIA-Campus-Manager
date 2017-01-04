@@ -32,13 +32,18 @@ function generateEmail(student) {
   const name = student.name.toLowerCase()
   const campusName = student.campusName.toLowerCase()
 
-  return Student.findAll({ where: { name, campusName } })
+  return Student.findAll({
+    where: {
+      name: student.name,
+      campusName: student.campusName
+    }
+  })
   .then(students => {
-    if (!students.length) { // if name is unique to campus, generate email normally
+    if (students.length < 2 ) { // if name is unique to campus, generate email normally
       student.email = `${name}@${campusName}.mhia.edu`
     } else {
       // otherwise, add an integer after the student's name to generate unique email
-      const num = students.length + 1
+      const num = students.length
       student.email = `${name}${num}@${campusName}.mhia.edu`
     }
   })

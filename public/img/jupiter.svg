@@ -3,23 +3,23 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="480px" height="480px" viewBox="0 0 480 480" enable-background="new 0 0 480 480" xml:space="preserve">
-<circle id="XMLID_363_" fill="#44725D" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="240.844" cy="232.125" r="182.906"/>
-<path id="XMLID_362_" fill="#AEDEEF" d="M412.125,234.094c0,91.312-50.625,157.031-141.656,169.969
-	c-90.281,12.844-188.531-78.656-188.531-169.969S155.812,59.531,247.031,59.531S412.125,142.781,412.125,234.094z"/>
-<path id="XMLID_361_" fill="#78B59E" d="M404.062,233.344c0,90.375-50.25,155.438-140.625,168.281
-	c-89.625,12.656-187.125-77.906-187.125-168.281S149.719,60.469,240.188,59.531C346.5,58.406,404.062,142.969,404.062,233.344z"/>
-<circle id="XMLID_360_" fill="#643BE2" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="192.75" cy="244.219" r="38.531"/>
-<circle id="XMLID_359_" fill="#414042" cx="97.406" cy="39.188" r="4.688"/>
-<circle id="XMLID_358_" fill="#414042" cx="224.344" cy="290.812" r="4.688"/>
-<circle id="XMLID_357_" fill="#414042" cx="112.688" cy="396.281" r="10.594"/>
-<circle id="XMLID_356_" fill="#414042" cx="313.594" cy="441.094" r="4.688"/>
-<circle id="XMLID_354_" fill="#414042" cx="238.312" cy="150.656" r="4.688"/>
-<circle id="XMLID_353_" fill="#414042" cx="262.125" cy="150.656" r="7.219"/>
+<circle id="XMLID_363_" fill="#44725D" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="240.844" cy="250.125" r="182.906"/>
+<path id="XMLID_362_" fill="#AEDEEF" d="M412.125,252.094c0,91.312-50.625,157.031-141.656,169.969
+	c-90.281,12.844-188.531-78.656-188.531-169.969S155.812,77.531,247.031,77.531S412.125,160.781,412.125,252.094z"/>
+<path id="XMLID_361_" fill="#78B59E" d="M404.062,251.344c0,90.375-50.25,155.438-140.625,168.281
+	c-89.625,12.656-187.125-77.906-187.125-168.281S149.719,78.469,240.188,77.531C346.5,76.406,404.062,160.969,404.062,251.344z"/>
+<circle id="XMLID_360_" fill="#643BE2" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="192.75" cy="262.219" r="38.531"/>
+<circle id="XMLID_359_" fill="#414042" cx="97.406" cy="57.188" r="4.688"/>
+<circle id="XMLID_358_" fill="#414042" cx="224.344" cy="308.812" r="4.688"/>
+<circle id="XMLID_357_" fill="#414042" cx="112.688" cy="414.281" r="10.594"/>
+<circle id="XMLID_356_" fill="#414042" cx="313.594" cy="459.094" r="4.688"/>
+<circle id="XMLID_354_" fill="#414042" cx="238.312" cy="168.656" r="4.688"/>
+<circle id="XMLID_353_" fill="#414042" cx="262.125" cy="168.656" r="7.219"/>
 <path id="XMLID_352_" fill="none" stroke="#414042" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M256.969,369.562c7.406-5.25,16.5-8.25,26.25-8.25c25.312,0,45.844,20.531,45.844,45.844c0,9-2.625,17.438-7.125,24.562"/>
-<circle id="XMLID_351_" fill="#847B2C" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="76.312" cy="76.969" r="14.156"/>
-<circle id="XMLID_23_" fill="#F15A29" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="269.344" cy="281.438" r="14.25"/>
-<circle id="XMLID_355_" fill="#414042" cx="177.75" cy="304.312" r="9"/>
-<circle id="XMLID_42_" fill="#414042" cx="154.312" cy="414.938" r="4.688"/>
-<circle id="XMLID_43_" fill="#F9ED32" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="365.156" cy="417.469" r="14.156"/>
+	M256.969,387.562c7.406-5.25,16.5-8.25,26.25-8.25c25.312,0,45.844,20.531,45.844,45.844c0,9-2.625,17.438-7.125,24.562"/>
+<circle id="XMLID_351_" fill="#847B2C" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="76.312" cy="94.969" r="14.156"/>
+<circle id="XMLID_23_" fill="#F15A29" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="269.344" cy="299.438" r="14.25"/>
+<circle id="XMLID_355_" fill="#414042" cx="177.75" cy="322.312" r="9"/>
+<circle id="XMLID_42_" fill="#414042" cx="154.312" cy="432.938" r="4.688"/>
+<circle id="XMLID_43_" fill="#F9ED32" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="365.156" cy="435.469" r="14.156"/>
 </svg>

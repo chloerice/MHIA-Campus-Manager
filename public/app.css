@@ -70,7 +70,10 @@ a {
   margin: 0;
   width: 40vw;
   display: inline;
+}
 
+.campus-list-img:hover {
+  background: #3F3075 !important;
 }
 
 .img-responsive {
@@ -141,6 +144,7 @@ select {
 
 .caption>h2 {
   font-size: 5vw;
+  color: #A5A3AD;
 }
 
 .btn-primary {

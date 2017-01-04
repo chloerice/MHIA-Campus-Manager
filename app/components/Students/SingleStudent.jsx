@@ -16,7 +16,7 @@ class SingleStudent extends Component {
   }
 
   render() {
-    console.log(this.props.currentStudent)
+
     return (
       <Jumbotron>
         <Grid>
