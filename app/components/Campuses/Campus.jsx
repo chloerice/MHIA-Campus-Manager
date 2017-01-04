@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Col, Thumbnail } from 'react-bootstrap'
+import { Link } from 'react-router'
 // Returns a linked div with campus logo and name center aligned vertically
 // that onClick renders the campus' profile page
 const Campus = (props) => {
@@ -10,9 +11,12 @@ const Campus = (props) => {
         className="campus-list-img"
         src={campus.image}
         alt={`${campus.name} campus logo`}>
-        <h2>
-          {campus.name}
-        </h2>
+        <Link
+          to={`/campuses/${campus.id}`}>
+          <h2>
+            {campus.name}
+          </h2>
+        </Link>
       </Thumbnail>
     </Col>
   )

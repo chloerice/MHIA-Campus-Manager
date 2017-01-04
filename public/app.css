@@ -58,13 +58,18 @@ body {
   margin-bottom: 0;
 }
 
+.jumbotron h1 {
+  margin: 20px;
+}
+
 a {
   text-decoration: none !important;
 }
 
 .thumbnail>img {
   margin: 0;
-  width: 50vw;
+  width: 40vw;
+  display: inline;
 
 }
 
@@ -81,10 +86,6 @@ a {
 
 .navbar {
   border-radius: 0 !important;
-}
-
-.btn-submit {
-
 }
 
 input, select {
@@ -116,11 +117,48 @@ select {
   vertical-align: middle;
 }
 
-.campus-header {
-  margin-top: 200px;
-  vertical-align: middle;
+.campus-header>h1 {
+  font-size: 10vw;
+  text-align: center;
+  vertical-align: baseline;
+  margin: .25em;
 }
 
-h1 {
-  margin: .25em;
+.campus-header>p {
+  font-size: 5vw;
+  line-height: 6vw;
+  margin: 0;
+}
+
+.campus-header {
+  margin-top: 25px;
+}
+
+.campus-roster {
+  background: white;
+  padding: 30px;
+}
+
+.caption>h2 {
+  font-size: 5vw;
+}
+
+.btn-primary {
+  margin: 20px
+}
+
+.students-header {
+  padding-top: 40px;
+}
+
+.students-table {
+  margin-top: 30px
+}
+
+.table-responsive {
+  margin: 0;
+}
+
+th {
+  text-align: center;
 }

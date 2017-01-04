@@ -1,18 +1,18 @@
 import React, { PropTypes } from 'react'
-import { Image, Grid, Row, Col } from 'react-bootstrap'
+import { Thumbnail, Grid, Row, Col } from 'react-bootstrap'
 // ** Rendered by SingleCampus container ** //
 // Returns a jumbotron with a campus logo and a page header
 const CampusJumbotron = (props) => (
-  <Grid fluid>
+  <Grid className="campus-jumbotron">
     <Row >
-      <Col xs={12} sm={4} md={4} lg={4}>
-        <Image
+      <Col xs={12} sm={5} md={5} lg={5}>
+        <Thumbnail
+          style={{background: 'none', border: 'none'}}
           className="campus-header-img"
           src={props.campus.image}
-          alt={'campus logo'}
-          responsive />
+          alt={'campus logo'}/>
       </Col>
-      <Col className="campus-header" xs={12} sm={12} md={8} lg={8}>
+      <Col className="campus-header" xs={12} sm={12} md={7} lg={7}>
         <p>Margaret Hamilton</p>
         <p>Interplanetary Academy of Javascript</p>
         <h1>{props.campus.name}</h1>

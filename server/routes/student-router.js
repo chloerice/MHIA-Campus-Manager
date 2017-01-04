@@ -32,7 +32,7 @@ router.post('/', (req, res, next) => {
 
 // read student by ID //
 router.get('/:id', (req, res, next) => {
-  Student.findById(req.params.id)
+  Student.findById(req.params.id, { include: [Campus] })
   .then(student => res.send(student))
   .catch(next)
 })

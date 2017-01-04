@@ -5,8 +5,8 @@ import { Jumbotron, Image, Grid, Row } from 'react-bootstrap'
 // ** Rendered by AllStudents container via Students ** //
 // Returns a jumbotron with a row of campus logos atop a page title and subtitle
 const StudentsJumbotron = (props) => (
-  <Jumbotron className="student-jumbotron">
-    <Grid>
+  <Jumbotron className="students-jumbotron">
+    <Grid className="students-header">
       <Row>
         {props.campuses.map(campus => {
           return (
