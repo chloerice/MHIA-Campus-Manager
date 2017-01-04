@@ -69,7 +69,7 @@ export function updateStudentThenRerenderIt(student) {
     dispatch(updateStudent())
 
     return updatingStudent(student)
-      .then(updatedStudent => dispatch(receiveStudent(student)))
+      .then(updatedStudent => dispatch(receiveStudent(updatedStudent)))
       .catch(console.error)
   }
 }

@@ -40,10 +40,10 @@ router.get('/:id', (req, res, next) => {
 // update student by ID
 router.put('/:id', (req, res, next) => {
   Student.findById(req.params.id)
-  .then(student => student.update(req.body))
-  .then(pendingStudent => {
-    Campus.find({ where: { name: pendingStudent.campusName } })
-    .then(campus => pendingStudent.setCampus(campus))
+  .then(pendingStudent => pendingStudent.update(req.body))
+  .then(student => {
+    Campus.find({ where: { name: student.campusName } })
+    .then(campus => student.setCampus(campus))
   })
   .then(updatedStudent => res.send(updatedStudent))
   .catch(next)

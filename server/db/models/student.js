@@ -2,7 +2,6 @@
 
 const Sequelize = require('sequelize')
 const db = require('../index')
-const Campus = db.model('campus')
 
 const Student = db.define('student', {
   name: {
@@ -19,22 +18,21 @@ const Student = db.define('student', {
   }
 }, {
   hooks: {
-    beforeValidate: function(student) {
+    beforeCreate: function(student) {
+      generateEmail(student)
+    },
+    beforeUpdate: function(student) {
       generateEmail(student)
     }
-  },
-  instanceMethods: {
-    findAndSetCampus: function() {
 
-    }
   }
 })
 
-function generateEmail(student, cb) {
+function generateEmail(student) {
   const name = student.name.toLowerCase()
   const campusName = student.campusName.toLowerCase()
 
-  Student.findAll({ where: { name, campusName } })
+  return Student.findAll({ where: { name, campusName } })
   .then(students => {
     if (!students.length) { // if name is unique to campus, generate email normally
       student.email = `${name}@${campusName}.mhia.edu`
@@ -43,9 +41,7 @@ function generateEmail(student, cb) {
       const num = students.length + 1
       student.email = `${name}${num}@${campusName}.mhia.edu`
     }
-    return cb()
   })
-  .catch(err => cb(err))
 }
 
 module.exports = Student

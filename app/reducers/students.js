@@ -6,7 +6,7 @@ const allStudentsReducer = (state = [], action) => {
   switch (action.type) {
 
     case RECEIVE_STUDENTS: {
-      return state.concat(action.students)
+      return action.students
     }
 
     default: return state

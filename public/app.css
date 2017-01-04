@@ -121,6 +121,6 @@ select {
   vertical-align: middle;
 }
 
-.campus-header-img {
-
+h1 {
+  margin: .25em;
 }

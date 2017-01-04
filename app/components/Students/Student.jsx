@@ -8,12 +8,13 @@ import { Image, Row, Col } from 'react-bootstrap'
 
 const Student = (props) => {
   const student = props.student
-  const campus = props.campus
+  const studentCampus = props.campuses.filter(campus => campus.id === student.campusId)[0]
+
   return (
     <Col xs={12} sm={12} md={8} lg={8} >
       <Row>
         <Col xs={12} sm={12} md={12} lg={12}>
-          <Image src={campus.image} alt={`${campus.name} campus logo`}/>
+          <Image src={studentCampus.image} alt={`${studentCampus.name} campus logo`}/>
         </Col>
       </Row>
       <Row>
@@ -22,8 +23,8 @@ const Student = (props) => {
           <h2>{student.email}</h2>
           <h2>
             <Link
-                to={`/campuses/${student.campusId}`}
-                onClick={(event) => props.handleClick(event, campus.id, 'campus')}>
+              to={`/campuses/${studentCampus.id}`}
+              onClick={(event) => props.handleClick(event, studentCampus.id, 'campus')}>
               {student.campusName}
             </Link>
           </h2>
@@ -35,7 +36,7 @@ const Student = (props) => {
 
 Student.propTypes = {
   student: PropTypes.object.isRequired,
-  campus: PropTypes.object.isRequired,
+  campuses: PropTypes.array.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 

@@ -11,7 +11,7 @@ const SingleCampus = (props) => (
     <Row>
       <CampusJumbotron campus={props.currentCampus} />
       <StudentTable
-        students={props.students}
+        students={props.students.filter(student => student.campusId === props.currentCampus.id)}
         campuses={props.campuses}
         showCampusName={false}
         handleClick={props.handleClick} />

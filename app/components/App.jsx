@@ -56,7 +56,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     handleClick: (event, id, type) => {
-      event.preventDefault()
       if (type === 'campus') return dispatch(readCampusThenRenderIt(id))
       if (type === 'student') return dispatch(readStudentThenRenderIt(id))
     }

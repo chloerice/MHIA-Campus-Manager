@@ -7,8 +7,9 @@ import Student from './Student'
 const SingleStudent = (props) => (
   <Row>
     <Student
+      className="single-student-header"
+      campuses={props.campuses}
       student={props.currentStudent}
-      campus={props.currentCampus} // need to either fix handleclick, or fix action creator b/c does not exist onClick...
       handleClick={props.handleClick} />
     {/* <EditStudentInfo
          campuses={props.campuses}
@@ -19,7 +20,6 @@ const SingleStudent = (props) => (
 
 SingleStudent.propTypes = {
   currentStudent: PropTypes.object.isRequired,
-  currentCampus: PropTypes.object.isRequired,
   campuses: PropTypes.array.isRequired,
   // handleUpdate: PropTypes.func.isRequired,
   // handleDelete: PropTypes.func.isRequired,
