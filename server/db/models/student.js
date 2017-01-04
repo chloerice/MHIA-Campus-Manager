@@ -19,16 +19,18 @@ const Student = db.define('student', {
   }
 }, {
   hooks: {
-    beforeCreate: function(student, next) {
-      generateEmail(student, next)
-    },
-    beforeUpdate: function(student, next) {
-      generateEmail(student, next)
+    beforeValidate: function(student) {
+      generateEmail(student)
+    }
+  },
+  instanceMethods: {
+    findAndSetCampus: function() {
+
     }
   }
 })
 
-function generateEmail(student, next) {
+function generateEmail(student, cb) {
   const name = student.name.toLowerCase()
   const campusName = student.campusName.toLowerCase()
 
@@ -41,10 +43,9 @@ function generateEmail(student, next) {
       const num = students.length + 1
       student.email = `${name}${num}@${campusName}.mhia.edu`
     }
-    return student.save()
+    return cb()
   })
-  .then(updatedStudent => updatedStudent)
-  .catch(next)
+  .catch(err => cb(err))
 }
 
 module.exports = Student

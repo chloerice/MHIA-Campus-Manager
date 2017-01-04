@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap'
 // ** Rendered by AllStudents & SingleCampus(<--via Students)  ** //
 // Returns a table of students w/ name(<--linked), email, and campus(<--linked)
 const StudentTable = (props) => (
-  <Table striped={true} bordered={true} responsive={true} hover={true}>
+  <Table striped bordered responsive hover>
     <thead>
       <tr>
         <th>NAME</th>
@@ -13,12 +13,13 @@ const StudentTable = (props) => (
       </tr>
     </thead>
     <tbody>
-      { props.students.map(student => {
-          const campus = props.campuses[student.campusId - 1]
+      { props.students.map((student, index) => {
           return (
-            <tr key={student.id}>
+            <tr key={index}>
               <td>
-                <Link to={`/students/${student.id}`} onClick={() => props.handleClick(student, 'student')}>
+                <Link
+                  to={`/students/${student.id}`}
+                  onClick={event => props.handleClick(event, student.id, 'student')}>
                   {student.name}
                 </Link>
               </td>
@@ -26,7 +27,9 @@ const StudentTable = (props) => (
               {
                 props.showCampusName &&
                 <td>
-                  <Link to={`/campuses/${student.campusId}`} onClick={() => props.handleClick(campus, 'campus')}>
+                  <Link
+                    to={`/campuses/${student.campusId}`}
+                    onClick={event => props.handleClick(event, student.campusId, 'campus')}>
                     {student.campusName}
                   </Link>
                 </td>

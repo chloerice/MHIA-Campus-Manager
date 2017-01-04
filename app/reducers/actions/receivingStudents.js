@@ -1,12 +1,15 @@
-import axios from 'axios'
+'use strict'
+
 import { RECEIVE_STUDENTS, RECEIVE_STUDENT } from './constants'
 
 import { requestStudents,
          createStudent,
+         requestStudent,
          updateStudent,
          deleteStudent,
          readingStudents,
          creatingStudent,
+         readingStudent,
          updatingStudent,
          deletingStudent } from './loadingStudents'
 
@@ -16,8 +19,8 @@ import { requestStudents,
 export function receiveStudents(students) {
   return {
     type: RECEIVE_STUDENTS,
+    students,
     loading: false,
-    students
   }
 }
 //_____________SingleStudent_____________
@@ -35,7 +38,7 @@ export function createStudentThenRerenderAll(student) {
   return dispatch => {
     dispatch(createStudent())
 
-    return axios.all([creatingStudent(student), readingStudents()])
+    return Promise.all([creatingStudent(student), readingStudents()])
       .then(([newStudent, students]) => dispatch(receiveStudents(students)))
       .catch(console.error)
   }
@@ -51,12 +54,22 @@ export function readStudentsThenRenderAll() {
   }
 }
 
+export function readStudentThenRenderIt(id) {
+  return dispatch => {
+    dispatch(requestStudent())
+
+    return readingStudent(id)
+      .then(student => dispatch(receiveStudent(student)))
+      .catch(console.error)
+  }
+}
+
 export function updateStudentThenRerenderIt(student) {
   return dispatch => {
     dispatch(updateStudent())
 
     return updatingStudent(student)
-      .then(updatedStudent => dispatch(receiveStudent(updatedStudent)))
+      .then(updatedStudent => dispatch(receiveStudent(student)))
       .catch(console.error)
   }
 }

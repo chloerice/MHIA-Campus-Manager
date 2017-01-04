@@ -18,46 +18,46 @@ const loadingReducer = (state = false, action) => {
 
   switch (action.type) {
     case CREATE_CAMPUS: {
-      return true
+      return action.loading
     }
     case CREATE_STUDENT: {
-      return true
+      return action.loading
     }
     case DELETE_CAMPUS: {
-      return true
+      return action.loading
     }
     case DELETE_STUDENT: {
-      return true
+      return action.loading
     }
     case RECEIVE_CAMPUSES: {
-      return false
+      return action.loading
     }
     case RECEIVE_CAMPUS: {
-      return false
+      return action.loading
     }
     case RECEIVE_STUDENTS: {
-      return false
+      return action.loading
     }
     case RECEIVE_STUDENT: {
-      return false
+      return action.loading
     }
     case REQUEST_CAMPUSES: {
-      return true
+      return action.loading
     }
     case REQUEST_CAMPUS: {
-      return true
+      return action.loading
     }
     case REQUEST_STUDENTS: {
-      return true
+      return action.loading
     }
     case REQUEST_STUDENT: {
-      return true
+      return action.loading
     }
     case UPDATE_CAMPUS: {
-      return true
+      return action.loading
     }
     case UPDATE_STUDENT: {
-      return true
+      return action.loading
     }
 
     default: return state

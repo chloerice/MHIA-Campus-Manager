@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react'
 import { Row } from 'react-bootstrap'
 
-// Components
 import CampusJumbotron from './CampusJumbotron'
 import StudentTable from '../utilities/StudentTable'
-import EditCampusInfo from './Form_EditCampusInfo'
-import ReassignStudent from './Form_ReassignStudent'
+// import EditCampusInfo from './Form_EditCampusInfo'
+// import ReassignStudent from './Form_ReassignStudent'
 
 const SingleCampus = (props) => (
-  <div>
+  <div className="container-fluid">
     <Row>
       <CampusJumbotron campus={props.currentCampus} />
       <StudentTable
@@ -18,11 +17,10 @@ const SingleCampus = (props) => (
         handleClick={props.handleClick} />
     </Row>
     <Row>
-      <EditCampusInfo
+      {/* <EditCampusInfo
         handleDelete={props.handleDelete}
-        handleUpdate={props.handleUpdate}
-      />
-    <ReassignStudent handleReassign={props.handleReassignment} />
+        handleUpdate={props.handleUpdate}/>
+      <ReassignStudent handleReassign={props.handleReassignment} /> */}
     </Row>
   </div>
 )

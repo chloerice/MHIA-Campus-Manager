@@ -46,8 +46,8 @@ export function readingCampuses() {
   return axios.get('/api/campuses')
     .then(res => res.data)
 }
-export function readingCampus(campusObj) {
-  return axios.get(`/api/campuses/${campusObj.id}`)
+export function readingCampus(id) {
+  return axios.get(`/api/campuses/${id}`)
     .then(res => res.data)
 }
 export function creatingCampus(campusObj) {

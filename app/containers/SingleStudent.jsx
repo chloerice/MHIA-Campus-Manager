@@ -9,17 +9,14 @@ import Student from '../components/students/SingleStudent'
 
 const mapStateToProps = (state) => {
   return {
-    currentStudent: state.currentStudent
+    currentStudent: state.currentStudent,
+    campuses: state.campuses
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const student = ownProps.currentStudent
   return {
-    handleClick: (object, objectType) => {
-      if (objectType === 'campus') return dispatch(receiveStudent(object))
-      else return dispatch(receiveStudent(object))
-    },
     handleUpdate: () => {
       dispatch(updateStudentThenRerenderIt(student))
     },

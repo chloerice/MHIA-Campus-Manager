@@ -1,3 +1,126 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* DO NOT EDIT ABOVE THIS LINE--CSS RESET!! */
+
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.jumbotron {
+  padding-top: 60px;
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.thumbnail>img {
+  margin: 0;
+  width: 50vw;
+
+}
+
+.img-responsive {
+  align: middle;
+  display: inline !important;
+  width: 10vw;
+  margin: 0;
+}
+
+.panel {
+  border: none;
+}
+
 .navbar {
   border-radius: 0 !important;
+}
+
+.btn-submit {
+
+}
+
+input, select {
+  margin: 15px;
+  height: 50px !important;
+  width: 90% !important;
+  font-size: 16px !important;
+  align: middle;
+}
+
+.form-control-feedback {
+  top: 15px !important;
+  right: 15px;
+}
+
+.help-block {
+  margin: 0;
+}
+
+select {
+  vertical-align: middle;
+  float: left;
+}
+
+.img-thumbnail {
+  margin: 30px 15px 15px 30px;
+  height: 80px;
+  width: 80px !important;
+  vertical-align: middle;
+}
+
+.campus-header {
+  margin-top: 200px;
+  vertical-align: middle;
+}
+
+.campus-header-img {
+
 }

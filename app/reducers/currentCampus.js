@@ -1,16 +1,16 @@
-import { RECEIVE_CAMPUS } from './actions/constants'
+import { RECEIVE_CAMPUS, RECEIVE_STUDENT } from './actions/constants'
 
 // in the store, this will be called 'currentCampus'
-const singleCampusReducer = (state = {}, action) => {
+const currentCampusReducer = (state = {}, action) => {
 
   switch (action.type) {
 
-    case RECEIVE_CAMPUS: {
-      return Object.assign({}, state, action.campus)
-    }
+    case RECEIVE_CAMPUS: return action.currentCampus
+
+    case RECEIVE_STUDENT: return action.currentCampus
 
     default: return state
   }
 }
 
-export default singleCampusReducer
+export default currentCampusReducer

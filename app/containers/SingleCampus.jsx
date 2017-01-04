@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 
+import { receiveStudent } from '../reducers/actions/receivingStudents'
 import {
   updateCampusThenRerenderIt,
   deleteCampusThenRerenderAll,

@@ -46,6 +46,12 @@ export function readingStudents() {
   return axios.get('/api/students')
     .then(res => res.data)
 }
+
+export function readingStudent(id) {
+  return axios.get(`/api/students/${id}`)
+    .then(res => res.data)
+}
+
 export function creatingStudent(studentObj) {
  return axios.post('/api/students', studentObj)
   .then(res => res.data)

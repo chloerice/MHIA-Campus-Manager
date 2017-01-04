@@ -21,7 +21,10 @@ router.post('/', (req, res, next) => {
   })
   .then(pendingStudent => {
     Campus.find({ where: { name: pendingStudent.campusName } })
-    .then(campus => pendingStudent.setCampus(campus))
+    .then(campus => {
+      pendingStudent.setCampus(campus)
+      return pendingStudent.save()
+    })
   })
   .then(newStudent => res.status(201).send(newStudent))
   .catch(next)

@@ -1,8 +1,5 @@
 import { connect } from 'react-redux'
 
-import { receiveCampus } from '../reducers/actions/receivingCampuses'
-import { receiveStudent } from '../reducers/actions/receivingStudents'
-
 import AllStudents from '../components/students/AllStudents'
 
 const mapStateToProps = (state) => {
@@ -13,13 +10,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleClick: (object, objectType) => {
-      if (objectType === 'campus') return dispatch(receiveCampus(object))
-      else return dispatch(receiveStudent(object))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllStudents)
+export default connect(mapStateToProps)(AllStudents)

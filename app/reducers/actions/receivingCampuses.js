@@ -1,10 +1,12 @@
-import axios from 'axios'
+'use strict'
+
 import { RECEIVE_CAMPUSES, RECEIVE_CAMPUS } from './constants'
 
 import { updateStudent, readingStudents, updatingStudent } from './loadingStudents'
 import { receiveStudents } from './receivingStudents'
 import { requestCampuses,
          createCampus,
+         requestCampus,
          updateCampus,
          deleteCampus,
          readingCampuses,
@@ -50,6 +52,16 @@ export function readCampusesThenRenderAll() {
 
     return readingCampuses()
       .then(campuses => dispatch(receiveCampuses(campuses)))
+      .catch(console.error)
+  }
+}
+
+export function readCampusThenRenderIt(id) {
+  return dispatch => {
+    dispatch(requestCampus())
+
+    return readingCampus(id)
+      .then(campus => dispatch(receiveCampus(campus)))
       .catch(console.error)
   }
 }

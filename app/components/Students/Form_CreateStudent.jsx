@@ -15,66 +15,80 @@ class CreateNewStudentForm extends Component {
     this.getValidationState = this.getValidationState.bind(this)
   }
 
-  getValidationState() {
-    const name = this.state.name
-    const upperCase = /([A-Z])\w+/g
-    if ( upperCase.test(name.charAt(0)) ) return 'success'
-    else return 'error'
+  getValidationState(name, type) {
+    function isCapitalized(word) {
+      const upperCase = /[A-Z]/g
+      const wordFirstLetter = word.charAt(0)
+
+      if (upperCase.test( wordFirstLetter )) return true
+      return false
+    }
+
+    if (type === 'campusName') {
+      if (!name.length) return 'error'
+      return 'success'
+    }
+
+    if (type === 'studentName') {
+      if (name.length) {
+        if (isCapitalized(name)) return 'success'
+        else return 'warning'
+      } else {
+        return null // don't validate if no name has been input
+      }
+    }
   }
 
   handleChange(event) {
-    let newState;
-
-    newState[event.controlId] = {
-      name: event.target.value,
-    }
+    let newState = {},
+        target = event.target.id
+    newState[target] = event.target.value
     this.setState(newState)
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    const student = {
-      name: this.state.name,
-      campusName: this.state.campus
-    }
-    this.props.dispatch(createStudentThenRerenderAll(student))
+    event.preventDefault() // don't refresh the page, man.
+    const student = Object.assign({}, this.state) // grab form input vals
+    this.setState({name: '', campusName: ''}) // clear the form
+    this.props.dispatch(createStudentThenRerenderAll(student)) // create the student
   }
 
   render() {
     const loading = this.props.loading
 
     return (
-      <Form inline>
-        <FormGroup>
+      <Form inline onSubmit={this.handleSubmit}>
+        <FormGroup
+          controlId="name"
+          validationState={this.getValidationState(this.state.name, 'studentName')}>
           <FormControl
-            controlId="name"
             type="text"
             value={this.state.name}
             placeholder="Enter a name"
-            onChange={this.handleChange}
-            validationState={this.getValidationState()}/>
+            onChange={this.handleChange} />
           <FormControl.Feedback />
           <HelpBlock>Name must be capitalized.</HelpBlock>
         </FormGroup>
-        <FormGroup>
+        <FormGroup
+          controlId="campusName"
+          validationState={this.getValidationState(this.state.campusName, 'campusName')}>
           <FormControl
             componentClass="select"
-            controlId="campusName"
             type="text"
             value={this.state.campusName}
-            placeholder="Select to a campus"
             onChange={this.handleChange}>
+            <option key="defaultSelection">Select a campus</option>
             {
               this.props.campuses.map(campus => {
                 return <option key={campus.id} value={campus.name}>{campus.name}</option>
               })
             }
           </FormControl>
+          <HelpBlock>A campus must be assigned.</HelpBlock>
         </FormGroup>
         <Button
           type="submit"
-          bsStyle="primary"
-          onSubmit={this.handleSubmit}>
+          bsStyle="primary">
           { loading ?
             `Saving new student ${this.state.name}...` : 'Save New Student'}
         </Button>
@@ -84,9 +98,9 @@ class CreateNewStudentForm extends Component {
 }
 
 CreateNewStudentForm.propTypes = {
-  campuses: PropTypes.object.isRequired,
-  dispatch: PropTypes.func,
-  loading: PropTypes.bool,
+  campuses: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 }
 
 export default CreateNewStudentForm

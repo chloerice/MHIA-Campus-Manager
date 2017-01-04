@@ -8,7 +8,7 @@ import { Image, Row, Col } from 'react-bootstrap'
 
 const Student = (props) => {
   const student = props.student
-  const campus = props.campuses[student.campusId - 1]
+  const campus = props.campus
   return (
     <Col xs={12} sm={12} md={8} lg={8} >
       <Row>
@@ -23,7 +23,7 @@ const Student = (props) => {
           <h2>
             <Link
                 to={`/campuses/${student.campusId}`}
-                onClick={() => props.handleClick(campus)}>
+                onClick={(event) => props.handleClick(event, campus.id, 'campus')}>
               {student.campusName}
             </Link>
           </h2>
@@ -35,7 +35,7 @@ const Student = (props) => {
 
 Student.propTypes = {
   student: PropTypes.object.isRequired,
-  campuses: PropTypes.object.isRequired,
+  campus: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 
