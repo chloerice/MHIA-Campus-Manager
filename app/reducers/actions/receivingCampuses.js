@@ -1,9 +1,9 @@
 'use strict'
 
-import { RECEIVE_CAMPUSES, RECEIVE_CAMPUS } from './constants'
+import { RECEIVE_CAMPUSES,
+         RECEIVE_CAMPUS,
+         RECEIVE_UPDATED_STUDENTS_AND_CAMPUS } from './constants'
 
-import { updateStudent, readingStudents, updatingStudent } from './loadingStudents'
-import { receiveStudents } from './receivingStudents'
 import { requestCampuses,
          createCampus,
          requestCampus,
@@ -34,14 +34,27 @@ export function receiveCampus(campus) {
   }
 }
 
+export function receiveUpdatedStudentsAndCampus(object) {
+  return {
+    type: RECEIVE_UPDATED_STUDENTS_AND_CAMPUS,
+    loading: false,
+    currentCampus: object.currentCampus,
+    students: object.students
+  }
+}
+
 // ********* ASYNC ACTION-CREATORS (THUNKS) ********* //
 
 export function createCampusThenRerenderAll(campus) {
   return dispatch => {
     dispatch(createCampus())
 
-    return Promise.all([creatingCampus(campus), readingCampuses()])
-      .then(([newCampus, campuses]) => dispatch(receiveCampuses(campuses)))
+    return creatingCampus(campus)
+      .then(newCampus => {
+        dispatch(requestCampuses())
+        return readingCampuses()
+      })
+      .then(campuses => dispatch(receiveCampuses(campuses)))
       .catch(console.error)
   }
 }
@@ -66,35 +79,26 @@ export function readCampusThenRenderIt(id) {
   }
 }
 
-export function updateCampusThenRerenderIt(campus) {
+export function updateCampusThenRerenderIt(id, info) {
   return dispatch => {
     dispatch(updateCampus())
 
-    return updatingCampus(campus)
-      .then(updatedCampus => dispatch(receiveCampus(updatedCampus)))
+    return updatingCampus(id, info)
+      .then(object => dispatch(receiveUpdatedStudentsAndCampus(object)))
       .catch(console.error)
   }
 }
 
-export function updateStudentCampusThenRerenderIt(student, campus) {
-  return dispatch => {
-    dispatch(updateStudent())
-
-  return Promise.all([updatingStudent(student), readingCampus(campus), readingStudents()])
-    .then(([updatedStudent, campusToRender, updatedStudents]) =>  {
-      dispatch(receiveStudents(updatedStudents))
-      dispatch(receiveCampus(campusToRender))
-    })
-    .catch(console.error)
-  }
-}
-
-export function deleteCampusThenRerenderAll(campus) {
+export function deleteCampusThenRerenderAll(id) {
   return dispatch => {
     dispatch(deleteCampus())
 
-    return Promise.all([deletingCampus(campus), readingCampuses()])
-      .then(([deletedCampus, campuses]) => dispatch(receiveCampuses(campuses)))
+    return deletingCampus(id)
+      .then(() => {
+        dispatch(requestCampuses())
+        return readingCampuses()
+      })
+      .then(campuses => dispatch(receiveCampuses(campuses)))
       .catch(console.error)
   }
 }

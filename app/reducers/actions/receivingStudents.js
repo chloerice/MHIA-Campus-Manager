@@ -38,8 +38,12 @@ export function createStudentThenRerenderAll(student) {
   return dispatch => {
     dispatch(createStudent())
 
-    return Promise.all([creatingStudent(student), readingStudents()])
-      .then(([newStudent, students]) => dispatch(receiveStudents(students)))
+    return creatingStudent(student)
+      .then(newStudent => {
+        dispatch(requestStudents())
+        return readingStudents()
+      })
+      .then(students => dispatch(receiveStudents(students)))
       .catch(console.error)
   }
 }
@@ -79,9 +83,9 @@ export function deleteStudentThenRerenderAll(id) {
     dispatch(deleteStudent())
 
     return deletingStudent(id)
-      .then(deletedStudent => {
-        console.log('reading students...')
-        readingStudents()
+      .then(() => {
+        dispatch(requestStudents())
+        return readingStudents()
       })
       .then(students => dispatch(receiveStudents(students)))
       .catch(console.error)

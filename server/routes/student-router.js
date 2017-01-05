@@ -20,10 +20,10 @@ router.post('/', (req, res, next) => {
     campusName: req.body.campusName,
   })
   .then(pendingStudent => {
-    Campus.find({ where: { name: pendingStudent.campusName } })
+    return Campus.find({
+      where: { name: pendingStudent.campusName } })
     .then(campus => {
-      pendingStudent.setCampus(campus)
-      return pendingStudent.save()
+      return pendingStudent.setCampus(campus)
     })
   })
   .then(newStudent => res.status(201).send(newStudent))
@@ -42,10 +42,21 @@ router.put('/:id', (req, res, next) => {
   Student.findById(req.params.id)
   .then(pendingStudent => pendingStudent.update(req.body))
   .then(student => {
-    Campus.find({ where: { name: student.campusName } })
-    .then(campus => student.setCampus(campus))
+    return Campus.find({
+      where: { name: student.campusName }
+    })
+    .then(campus => {
+      return student.setCampus(campus)
+    })
+    .then(studentToSave => studentToSave.save())
   })
-  .then(updatedStudent => res.send(updatedStudent))
+  .then(updatedStudent => {
+    // grab student so we can include its campus data
+    Student.findById(updatedStudent.id, {
+      include: [Campus]
+    })
+    .then(student => res.send(student))
+  })
   .catch(next)
 })
 
@@ -56,7 +67,7 @@ router.delete('/:id', (req, res, next) => {
       id: req.params.id
     }
   })
-  .then(deletedStudent => res.send(deletedStudent))
+  .then(deletedStudent => res.sendStatus(204))
   .catch(next)
 })
 

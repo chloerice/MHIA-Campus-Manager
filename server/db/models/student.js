@@ -18,17 +18,13 @@ const Student = db.define('student', {
   }
 }, {
   hooks: {
-    beforeCreate: function(student) {
-      generateEmail(student)
-    },
-    beforeUpdate: function(student) {
-      generateEmail(student)
+    beforeValidate: function(student) {
+      return setEmail(student)
     }
-
   }
 })
 
-function generateEmail(student) {
+function setEmail(student) {
   const name = student.name.toLowerCase()
   const campusName = student.campusName.toLowerCase()
 
@@ -39,6 +35,7 @@ function generateEmail(student) {
     }
   })
   .then(students => {
+
     if (students.length < 2 ) { // if name is unique to campus, generate email normally
       student.email = `${name}@${campusName}.mhia.edu`
     } else {

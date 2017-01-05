@@ -34,6 +34,7 @@ export function updateCampus() {
     loading: true
   }
 }
+
 export function deleteCampus() {
   return {
     type: DELETE_CAMPUS,
@@ -54,11 +55,11 @@ export function creatingCampus(campusObj) {
   return axios.post('/api/campuses', campusObj)
     .then(res => res.data)
 }
-export function updatingCampus(campusObj) {
-  return axios.put(`/api/campuses/${campusObj.id}`)
+export function updatingCampus(id, info) {
+  return axios.put(`/api/campuses/${id}`, info)
     .then(res => res.data)
 }
-export function deletingCampus(campusObj) {
-  return axios.delete(`/api/campuses/${campusObj.id}`)
+export function deletingCampus(id) {
+  return axios.delete(`/api/campuses/${id}`)
     .then(res => res.data)
 }

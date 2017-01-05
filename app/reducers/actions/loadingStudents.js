@@ -52,8 +52,8 @@ export function readingStudent(id) {
     .then(res => res.data)
 }
 
-export function creatingStudent(id) {
- return axios.post('/api/students', id)
+export function creatingStudent(student) {
+ return axios.post('/api/students', student)
   .then(res => res.data)
 }
 export function updatingStudent(id, infoToUpdate) {

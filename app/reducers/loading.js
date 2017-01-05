@@ -3,6 +3,7 @@ import { REQUEST_CAMPUSES,
          CREATE_CAMPUS,
          REQUEST_STUDENTS,
          RECEIVE_STUDENTS,
+         RECEIVE_UPDATED_STUDENTS_AND_CAMPUS,
          CREATE_STUDENT,
          REQUEST_STUDENT,
          RECEIVE_STUDENT,
@@ -36,6 +37,9 @@ const loadingReducer = (state = false, action) => {
       return action.loading
     }
     case RECEIVE_STUDENTS: {
+      return action.loading
+    }
+    case RECEIVE_UPDATED_STUDENTS_AND_CAMPUS: {
       return action.loading
     }
     case RECEIVE_STUDENT: {

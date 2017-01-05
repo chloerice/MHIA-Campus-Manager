@@ -41,18 +41,23 @@ router.put('/:id', (req, res, next) => {
     })
   })
   .spread((numUpdatedStudents, updatedStudentsArr) => {
-    // update all updated students' emails with correct campusName
-    const updatedStudents = updatedStudentsArr.map(student => {
+    // update all updated students' emails with correct campusName?
+    /* const updatedStudents = updatedStudentsArr.map(student => {
       return student.update({
         email: `${student.name.toLowerCase()}@${student.campusName.toLowerCase()}.mhia.edu`
       })
     })
     return Promise.all(updatedStudents)
+*/  if (numUpdatedStudents > 0) return updatedStudentsArr
+    else return numUpdatedStudents
   })
   .then(updatedStudents => {
-    // grab the updated/newly created campus instance and send it
+    // grab the updated/newly created campus instance and send it w/students
     const updatedCampus = updatedStudents[0].getCampus()
-    res.send(updatedCampus)
+    res.send({
+      currentCampus: updatedCampus,
+      students: updatedStudents
+    })
   })
   .catch(next)
 })
@@ -63,7 +68,7 @@ router.delete('/:id', (req, res, next) => {
       id: req.params.id
     }
   })
-  .then(deletedCampus => res.status(204).send(deletedCampus))
+  .then(deletedCampus => res.sendStatus(204))
   .catch(next)
 })
 

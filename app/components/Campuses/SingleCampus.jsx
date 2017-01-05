@@ -16,6 +16,8 @@ class SingleCampus extends Component {
     this.state = {
       deleting: false
     }
+
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -24,8 +26,10 @@ class SingleCampus extends Component {
 
   handleDelete(event) {
     event.preventDefault()
+    const id = this.props.currentCampus.id
     this.setState({deleting: true})
-    this.props.dispatch(deleteCampusThenRerenderAll(this.props.currentCampus.id))
+    console.log(id)
+    this.props.dispatch(deleteCampusThenRerenderAll(id))
   }
 
   render() {
@@ -51,12 +55,12 @@ class SingleCampus extends Component {
                   dispatch={this.props.dispatch}
                   loading={deleting ? false : this.props.loading} />
                 <LinkContainer
-                  to={{pathname: '/students'}}
+                  to={{pathname: '/campuses'}}
                   onClick={this.handleDelete}>
                   <Button
                     bsStyle="danger">
                     { loading ?
-                      `Deleting student ${this.props.currentCampus.name}...` : 'Delete Student'}
+                      `Deleting campus ${this.props.currentCampus.name}...` : 'Delete Campus'}
                   </Button>
                 </LinkContainer>
               </div>
