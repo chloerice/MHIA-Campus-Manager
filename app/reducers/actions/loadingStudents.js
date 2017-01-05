@@ -52,15 +52,15 @@ export function readingStudent(id) {
     .then(res => res.data)
 }
 
-export function creatingStudent(studentObj) {
- return axios.post('/api/students', studentObj)
+export function creatingStudent(id) {
+ return axios.post('/api/students', id)
   .then(res => res.data)
 }
-export function updatingStudent(studentObj) {
- return axios.put(`/api/students/${studentObj.id}`)
+export function updatingStudent(id, infoToUpdate) {
+ return axios.put(`/api/students/${id}`, infoToUpdate)
   .then(res => res.data)
 }
-export function deletingStudent(studentObj) {
- return axios.delete(`/api/students/${studentObj.id}`)
+export function deletingStudent(id) {
+ return axios.delete(`/api/students/${id}`)
   .then(res => res.data)
 }

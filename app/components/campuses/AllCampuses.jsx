@@ -10,12 +10,12 @@ const AllCampuses = (props) => (
     <Grid>
       <Row id="campus-list">
         { props.campuses.map((campus) => (
-          <Link
-            key={campus.id}
-            to={`/campuses/${campus.id}`}
-            onClick={(event) => props.handleClick(event, campus.id, 'campus')}>
-              <Campus campus={campus} handleClick={props.handleClick} />
-          </Link>
+            <Link
+              key={campus.id}
+              to={`/campuses/${campus.id}`}
+              onClick={(event) => props.handleClick(event, campus.id, 'campus')}>
+                <Campus campus={campus} handleClick={props.handleClick} />
+            </Link>
             )
           )
         }

@@ -1,26 +1,19 @@
 import { connect } from 'react-redux'
 
-import { updateStudentThenRerenderIt,
-         deleteStudentThenRerenderAll } from '../reducers/actions/receivingStudents'
-
 import Student from '../components/students/SingleStudent'
 
 const mapStateToProps = (state) => {
   return {
     currentStudent: state.currentStudent,
-    campuses: state.campuses
+    campuses: state.campuses,
+    loading: state.loading
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const student = ownProps.currentStudent
   return {
-    handleUpdate: () => {
-      dispatch(updateStudentThenRerenderIt(student))
-    },
-    handleDelete: () => {
-      dispatch(deleteStudentThenRerenderAll(student))
-    }
+    dispatch,
+    handleClick: ownProps.handleClick
   }
 }
 

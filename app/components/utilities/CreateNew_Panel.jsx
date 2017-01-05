@@ -27,14 +27,15 @@ class CreateNew extends Component {
   }
 
   render() {
+    const panelId = `create-new-${this.props.instance.toLowerCase()}`
     return (
       <div>
+        <Panel id={panelId} collapsible={true} expanded={this.state.open}>
+          { this.whichForm() }
+        </Panel>
         <Button onClick={this.toggleForm}>
           {`Create New ${this.props.instance}`}
         </Button>
-        <Panel collapsible={true} expanded={this.state.open}>
-          { this.whichForm() }
-        </Panel>
       </div>
     )
   }

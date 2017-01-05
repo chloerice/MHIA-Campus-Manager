@@ -18,13 +18,13 @@ const Student = (props) => {
             src={campus.image}
             alt={`${campus.name} campus logo`}>
             <h1>{student.name}</h1>
-            <h2>{student.email}</h2>
-            <h2>
+            <p>
               <Link
                 to={`/campuses/${campus.id}`}>
                 {student.campusName}
               </Link>
-            </h2>
+            </p>
+            <p>{`email: ${student.email}`}</p>
           </Thumbnail>
         </Col>
       </Row>

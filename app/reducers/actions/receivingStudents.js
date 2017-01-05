@@ -64,22 +64,26 @@ export function readStudentThenRenderIt(id) {
   }
 }
 
-export function updateStudentThenRerenderIt(student) {
+export function updateStudentThenRerenderIt(id, info) {
   return dispatch => {
     dispatch(updateStudent())
 
-    return updatingStudent(student)
+    return updatingStudent(id, info)
       .then(updatedStudent => dispatch(receiveStudent(updatedStudent)))
       .catch(console.error)
   }
 }
 
-export function deleteStudentThenRerenderAll(student) {
+export function deleteStudentThenRerenderAll(id) {
   return dispatch => {
     dispatch(deleteStudent())
 
-    return Promise.all([deletingStudent(student), readingStudents()])
-      .then(([deletedStudent, students]) => dispatch(receiveStudents(students)))
+    return deletingStudent(id)
+      .then(deletedStudent => {
+        console.log('reading students...')
+        readingStudents()
+      })
+      .then(students => dispatch(receiveStudents(students)))
       .catch(console.error)
   }
 }

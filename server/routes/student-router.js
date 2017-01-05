@@ -56,7 +56,7 @@ router.delete('/:id', (req, res, next) => {
       id: req.params.id
     }
   })
-  .then(deletedStudent => res.status(204).send(deletedStudent))
+  .then(deletedStudent => res.send(deletedStudent))
   .catch(next)
 })
 
