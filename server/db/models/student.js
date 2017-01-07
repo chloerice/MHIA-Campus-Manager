@@ -39,7 +39,7 @@ const Student = db.define('student', {
       })
       .then(students => {
         if (students.length < 2 ) { // if name is unique to campus, generate email normally
-          this.email = `${this.name}@${this.campusName}.mhia.edu`
+          this.email = `${name}@${campusName}.mhia.edu`
         } else {
           // otherwise, add an integer after the student's name to generate unique email
           const num = students.length
