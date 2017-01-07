@@ -27,7 +27,7 @@ class SingleCampus extends Component {
 
   handleDelete(event) {
     // b/c the button is linked, event in this case is to navigate to the AllCampuses page, so we don't want to prevent that default action unless there's a warning preventing the deletion!
-    if (this.props.students.length > 0) {
+    if (!this.props.students.length > 0) {
       const id = this.props.currentCampus.id
       this.setState({ deleting: true })
       this.props.dispatch( deleteCampusThenRerenderAll(id) )
