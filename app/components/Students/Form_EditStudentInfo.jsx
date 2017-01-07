@@ -1,13 +1,17 @@
 // create, update, or delete student (name, email, campusName)
 import React, { Component, PropTypes } from 'react'
-import { Form, FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, HelpBlock } from 'react-bootstrap'
 import { updateStudentThenRerenderIt } from '../../reducers/actions/receivingStudents'
+
+import UpdateButton from '../utilities/UpdateButton'
 
 class EditStudentInfoForm extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      values: {}
+    }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
@@ -31,21 +35,23 @@ class EditStudentInfoForm extends Component {
   }
 
   handleChange(event) {
-    let newState = {},
-        target = event.target.id
-    newState[target] = event.target.value
-    this.setState(newState)
+    let newVals = {},
+        target = event.target.id,
+        value = event.target.value
+    if (value !== 'Assign a new campus') {
+      newVals[target] = value
+    }
+    this.setState({ values: newVals })
   }
 
   handleUpdate(event) {
     event.preventDefault() // don't refresh the page, man.
-    const studentInfo = Object.assign({}, this.state) // grab form input val(s)
-    this.setState({}) // clear the form
+    const studentInfo = Object.assign({}, this.state.values) // grab form input val(s)
+    this.setState({ values: {} }) // clear the form
     this.props.dispatch(updateStudentThenRerenderIt(this.props.currentStudent.id, studentInfo)) // update the student
   }
 
   render() {
-    const loading = this.props.loading
 
     return (
       <Form onSubmit={this.handleUpdate}>
@@ -55,7 +61,7 @@ class EditStudentInfoForm extends Component {
           validationState={this.getValidationState()}>
           <FormControl
             type="text"
-            value={this.state.name || ''}
+            value={this.state.values.name || ''}
             placeholder="Update student name"
             onChange={this.handleChange} />
           <FormControl.Feedback />
@@ -65,9 +71,9 @@ class EditStudentInfoForm extends Component {
           <FormControl
             componentClass="select"
             type="text"
-            value={this.state.campusName}
+            value={this.state.values.campusName}
             onChange={this.handleChange}>
-            <option key="defaultSelection">{'Assign a new campus'}</option>
+            <option>{'Assign a new campus'}</option>
             {
               this.props.campuses.map(campus => {
                 return <option key={campus.id} value={campus.name}>{campus.name}</option>
@@ -75,12 +81,10 @@ class EditStudentInfoForm extends Component {
             }
           </FormControl>
         </FormGroup>
-        <Button
-          type="submit"
-          bsStyle="primary">
-          { loading ?
-            `Updating student ${this.props.currentStudent.name}...` : 'Update Student'}
-        </Button>
+        <UpdateButton
+          loading={this.props.loading}
+          objType={'Student'}
+          name={this.props.currentStudent.name || ''}/>
       </Form>
     )
   }
@@ -90,7 +94,7 @@ EditStudentInfoForm.propTypes = {
   campuses: PropTypes.array.isRequired,
   currentStudent: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired
 }
 
 export default EditStudentInfoForm

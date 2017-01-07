@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Panel, Button } from 'react-bootstrap'
+import { Row, Panel, Button } from 'react-bootstrap'
 
 import CreateNewCampusForm from '../campuses/Form_CreateNewCampus'
 import CreateNewStudentForm from '../students/Form_CreateStudent'
@@ -29,14 +29,14 @@ class CreateNew extends Component {
   render() {
     const panelId = `create-new-${this.props.instance.toLowerCase()}`
     return (
-      <div>
+      <Row>
         <Panel id={panelId} collapsible={true} expanded={this.state.open}>
           { this.whichForm() }
         </Panel>
         <Button onClick={this.toggleForm}>
           {`Create New ${this.props.instance}`}
         </Button>
-      </div>
+      </Row>
     )
   }
 }

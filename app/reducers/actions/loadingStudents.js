@@ -4,6 +4,7 @@ import { REQUEST_STUDENTS,
          CREATE_STUDENT,
          REQUEST_STUDENT,
          UPDATE_STUDENT,
+         UPDATE_STUDENTS,
          DELETE_STUDENT } from './constants'
 
 // ********* ACTION-CREATORS ********* //
@@ -34,6 +35,12 @@ export function updateStudent() {
    loading: true
  }
 }
+export function updateStudents() {
+  return {
+    type: UPDATE_STUDENTS,
+    loading: true
+  }
+}
 export function deleteStudent() {
  return {
    type: DELETE_STUDENT,
@@ -59,6 +66,10 @@ export function creatingStudent(student) {
 export function updatingStudent(id, infoToUpdate) {
  return axios.put(`/api/students/${id}`, infoToUpdate)
   .then(res => res.data)
+}
+export function updatingStudents(updatedCampus) {
+  return axios.put('/api/students', updatedCampus)
+    .then(res => res.data)
 }
 export function deletingStudent(id) {
  return axios.delete(`/api/students/${id}`)

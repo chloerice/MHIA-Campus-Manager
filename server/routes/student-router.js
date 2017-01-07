@@ -2,13 +2,14 @@
 
 const router = require('express').Router()
 const db = require('../db')
+const Promise = require('bluebird')
 
 const Student = db.model('student')
 const Campus = db.model('campus')
 
 // read all students
 router.get('/', (req, res, next) => {
-  Student.findAll()
+  Student.findAll({ include: [Campus] })
   .then(studentArr => res.send(studentArr))
   .catch(next)
 })
@@ -30,6 +31,27 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
+// update all students whose campus was just updated
+router.put('/', (req, res, next) => {
+  // req.body is a campus instance here
+  Student.update({
+    campusName: req.body.name
+  }, {
+    where: {
+      campusId: req.body.id
+    },
+    returning: true
+  })
+  .spread((numUpdatedStudents, updatedStudentsArr) => {
+    return Promise.map(updatedStudentsArr, function(student) {
+      student.setEmail()
+      return student.save()
+    })
+  })
+  .then(updatedStudents => res.sendStatus(201))
+  .catch(next)
+})
+
 // read student by ID //
 router.get('/:id', (req, res, next) => {
   Student.findById(req.params.id, { include: [Campus] })
@@ -43,20 +65,14 @@ router.put('/:id', (req, res, next) => {
   .then(pendingStudent => pendingStudent.update(req.body))
   .then(student => {
     return Campus.find({
-      where: { name: student.campusName }
+      where: {
+        name: student.campusName
+      }
     })
-    .then(campus => {
-      return student.setCampus(campus)
-    })
+    .then(campus => student.setCampus(campus))
     .then(studentToSave => studentToSave.save())
   })
-  .then(updatedStudent => {
-    // grab student so we can include its campus data
-    Student.findById(updatedStudent.id, {
-      include: [Campus]
-    })
-    .then(student => res.send(student))
-  })
+  .then(updatedStudent => res.send(updatedStudent))
   .catch(next)
 })
 

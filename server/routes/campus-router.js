@@ -29,36 +29,7 @@ router.put('/:id', (req, res, next) => {
   .then(campus => {
     return campus.update(req.body)
   })
-  .then(updatedCampus => {
-    // update all students whose campus was just updated
-    return Student.update({
-      campusName: updatedCampus.name
-    }, {
-      where: {
-        campusId: updatedCampus.id
-      },
-      returning: true
-    })
-  })
-  .spread((numUpdatedStudents, updatedStudentsArr) => {
-    // update all updated students' emails with correct campusName?
-    /* const updatedStudents = updatedStudentsArr.map(student => {
-      return student.update({
-        email: `${student.name.toLowerCase()}@${student.campusName.toLowerCase()}.mhia.edu`
-      })
-    })
-    return Promise.all(updatedStudents)
-*/  if (numUpdatedStudents > 0) return updatedStudentsArr
-    else return numUpdatedStudents
-  })
-  .then(updatedStudents => {
-    // grab the updated/newly created campus instance and send it w/students
-    const updatedCampus = updatedStudents[0].getCampus()
-    res.send({
-      currentCampus: updatedCampus,
-      students: updatedStudents
-    })
-  })
+  .then(updatedCampus => res.send(updatedCampus))
   .catch(next)
 })
 

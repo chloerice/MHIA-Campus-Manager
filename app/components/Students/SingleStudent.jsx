@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import { Jumbotron, Grid, Row, Col, Button } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { Jumbotron, Grid, Row, Col } from 'react-bootstrap'
+import { Link } from 'react-router'
 
 import { readStudentThenRenderIt,
          deleteStudentThenRerenderAll } from '../../reducers/actions/receivingStudents'
 
+import DeleteButton from '../utilities/DeleteButton'
 import EditStudentInfo from './Form_EditStudentInfo'
 import Student from './Student'
 
@@ -24,14 +25,15 @@ class SingleStudent extends Component {
   }
 
   handleDelete(event) {
-    event.preventDefault()
-    this.setState({deleting: true})
-    this.props.dispatch(deleteStudentThenRerenderAll(this.props.currentStudent.id))
+    // b/c the button is linked, event in this case is to navigate to the AllStudents page, so we don't want to prevent that default action!
+    const id = this.props.currentStudent.id
+    this.setState({ deleting: true })
+    this.props.dispatch( deleteStudentThenRerenderAll(id) )
   }
 
   render() {
-    const loading = this.props.loading
     const deleting = this.state.deleting
+
     return (
       <Jumbotron>
         <Grid>
@@ -40,22 +42,19 @@ class SingleStudent extends Component {
               className="single-student-header"
               student={this.props.currentStudent}
               handleClick={this.props.handleClick} />
-            <Col xs={12} sm={12} md={4} lg={4}>
+            <Col xs={12} sm={12} md={6} lg={6}>
               <div className="edit-student-form">
                 <EditStudentInfo
                   campuses={this.props.campuses}
                   currentStudent={this.props.currentStudent}
                   dispatch={this.props.dispatch}
-                  loading={deleting ? false : this.props.loading} />
-                <LinkContainer
-                  to={{pathname: '/students'}}
-                  onClick={this.handleDelete}>
-                  <Button
-                    bsStyle="danger">
-                    { loading ?
-                      `Deleting student ${this.props.currentStudent.name}...` : 'Delete Student'}
-                  </Button>
-                </LinkContainer>
+                  loading={ deleting ? false : this.props.loading } />
+                <Link to="/students" onClick={this.handleDelete}>
+                  <DeleteButton
+                    loading={ !deleting ? false : this.props.loading }
+                    objType="Student"
+                    name={this.props.currentStudent.name || ''}/>
+                </Link>
               </div>
             </Col>
           </Row>
@@ -68,9 +67,9 @@ class SingleStudent extends Component {
 SingleStudent.propTypes = {
   currentStudent: PropTypes.object.isRequired,
   campuses: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   params: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 

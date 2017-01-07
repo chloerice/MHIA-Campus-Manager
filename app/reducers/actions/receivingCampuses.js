@@ -1,8 +1,13 @@
 'use strict'
 
 import { RECEIVE_CAMPUSES,
-         RECEIVE_CAMPUS,
-         RECEIVE_UPDATED_STUDENTS_AND_CAMPUS } from './constants'
+         RECEIVE_CAMPUS } from './constants'
+import { receiveStudents } from './receivingStudents'
+import { requestStudents,
+         readingStudents,
+         updateStudents,
+         updatingStudents } from './loadingStudents'
+
 
 import { requestCampuses,
          createCampus,
@@ -31,15 +36,6 @@ export function receiveCampus(campus) {
     type: RECEIVE_CAMPUS,
     loading: false,
     currentCampus: campus
-  }
-}
-
-export function receiveUpdatedStudentsAndCampus(object) {
-  return {
-    type: RECEIVE_UPDATED_STUDENTS_AND_CAMPUS,
-    loading: false,
-    currentCampus: object.currentCampus,
-    students: object.students
   }
 }
 
@@ -84,7 +80,23 @@ export function updateCampusThenRerenderIt(id, info) {
     dispatch(updateCampus())
 
     return updatingCampus(id, info)
-      .then(object => dispatch(receiveUpdatedStudentsAndCampus(object)))
+      .then(updatedCampus => {
+        dispatch(receiveCampus(updatedCampus))
+        dispatch(updateStudents())
+        return updatingStudents(updatedCampus)
+      })
+      .then(updatedStudents => {
+        // grab the whole list of students so we our students prop is up to date
+        dispatch(requestStudents())
+        return readingStudents()
+      })
+      .then(students => {
+        dispatch(receiveStudents(students))
+        // grab the whole list of campuses so our campuses prop is up to date
+        dispatch(requestCampuses())
+        return readingCampuses()
+      })
+      .then(campuses => dispatch(receiveCampuses(campuses)))
       .catch(console.error)
   }
 }

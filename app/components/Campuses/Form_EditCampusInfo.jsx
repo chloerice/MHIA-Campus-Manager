@@ -1,14 +1,18 @@
 // create, update or delete campus (name, image)
 
 import React, { Component, PropTypes } from 'react'
-import { Form, FormGroup, FormControl, HelpBlock, Button, Image } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, HelpBlock, Image } from 'react-bootstrap'
 import { updateCampusThenRerenderIt } from '../../reducers/actions/receivingCampuses'
+
+import UpdateButton from '../utilities/UpdateButton'
 
 class EditCampusInfoForm extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      values: {}
+    }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
@@ -32,21 +36,20 @@ class EditCampusInfoForm extends Component {
   }
 
   handleChange(event) {
-    let newState = {},
+    let newVals = {},
         target = event.target.id
-    newState[target] = event.target.value
-    this.setState(newState)
+    newVals[target] = event.target.value
+    this.setState({ values: newVals })
   }
 
   handleUpdate(event) {
     event.preventDefault() // don't refresh the page, man.
-    const campusInfo = Object.assign({}, this.state) // grab form input val(s)
-    this.setState({}) // clear the form
+    const campusInfo = Object.assign({}, this.state.values) // grab form input val(s)
+    this.setState({ values: {} }) // clear the form
     this.props.dispatch(updateCampusThenRerenderIt(this.props.currentCampus.id, campusInfo)) // update the campus
   }
 
   render() {
-    const loading = this.props.loading
 
     return (
       <Form onSubmit={this.handleUpdate}>
@@ -56,7 +59,7 @@ class EditCampusInfoForm extends Component {
           validationState={this.getValidationState()}>
           <FormControl
             type="text"
-            value={this.state.name || ''}
+            value={this.state.values.name || ''}
             placeholder="Update campus name"
             onChange={this.handleChange} />
           <FormControl.Feedback />
@@ -68,7 +71,7 @@ class EditCampusInfoForm extends Component {
           <FormControl
             componentClass="select"
             type="text"
-            value={this.state.image}
+            value={this.state.values.image}
             onChange={(event) => this.handleChange(event)}>
             <option>Update Logo</option>
             <option value="/img/terra.svg">Terra</option>
@@ -87,12 +90,10 @@ class EditCampusInfoForm extends Component {
           thumbnail
           src={ !this.state.image ? '/img/terra.svg' : this.state.image }
           alt={'logo'} />
-        <Button
-          type="submit"
-          bsStyle="primary">
-          { loading ?
-            `Updating campus ${this.props.currentCampus.name}...` : 'Update Campus'}
-        </Button>
+        <UpdateButton
+          loading={this.props.loading}
+          objType={'Campus'}
+          name={this.props.currentCampus.name || ''}/>
       </Form>
     )
   }

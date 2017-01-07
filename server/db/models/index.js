@@ -7,6 +7,6 @@
 const Campus = require('./campus')
 const Student = require('./student')
 
-Student.belongsTo(Campus, {hooks: true, onUpdate: 'cascade', constraints: true})
+Student.belongsTo(Campus, { hooks: true, onUpdate: 'cascade', constraints: false })
 
-module.exports = {Campus, Student}
+module.exports = { Campus, Student }

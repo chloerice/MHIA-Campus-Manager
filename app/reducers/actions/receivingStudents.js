@@ -73,7 +73,18 @@ export function updateStudentThenRerenderIt(id, info) {
     dispatch(updateStudent())
 
     return updatingStudent(id, info)
-      .then(updatedStudent => dispatch(receiveStudent(updatedStudent)))
+      .then(updatedStudent => {
+        // Since GET students/:id has an include: [Campus], we request the student even though we already have it after updating so that currentStudent keeps its campus info
+        dispatch(requestStudent())
+        return readingStudent(updatedStudent.id)
+      })
+      .then(student => {
+        dispatch(receiveStudent(student))
+        // now grab the whole student list so our students prop is up to date
+        dispatch(requestStudents())
+        return readingStudents()
+      })
+      .then(students => dispatch(receiveStudents(students)))
       .catch(console.error)
   }
 }

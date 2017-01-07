@@ -3,25 +3,25 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="480px" height="480px" viewBox="0 0 480 480" enable-background="new 0 0 480 480" xml:space="preserve">
-<circle id="XMLID_404_" fill="#A58768" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="246.281" cy="244.281" r="182.906"/>
-<path id="XMLID_403_" fill="#F9F5B8" d="M417.844,243.906c0,89.438-50.625,153.844-141.75,166.594
-	c-90.375,12.562-188.719-77.063-188.719-166.594s73.969-171,165.188-171S417.844,154.469,417.844,243.906z"/>
-<path id="XMLID_402_" fill="#B29572" d="M414,244.375c0,89.156-50.906,153.281-142.594,165.938
-	c-90.844,12.562-189.75-76.781-189.75-165.938S156.094,73.844,247.875,72.906C355.688,71.875,414,155.219,414,244.375z"/>
-<circle id="XMLID_401_" fill="#5FC5E5" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="409.312" cy="34.938" r="24.938"/>
-<circle id="XMLID_400_" fill="#A8C97D" cx="248.719" cy="288.062" r="4.688"/>
-<circle id="XMLID_399_" fill="#5940D3" cx="272.25" cy="186.812" r="7.594"/>
-<circle id="XMLID_398_" fill="#A845AD" cx="162.469" cy="440.5" r="10.594"/>
+<circle id="XMLID_404_" fill="#A58768" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="246.281" cy="256.281" r="182.906"/>
+<path id="XMLID_403_" fill="#F9F5B8" d="M417.844,255.906c0,89.438-50.625,153.844-141.75,166.594
+	c-90.375,12.562-188.719-77.063-188.719-166.594s73.969-171,165.188-171S417.844,166.469,417.844,255.906z"/>
+<path id="XMLID_402_" fill="#B29572" d="M414,256.375c0,89.156-50.906,153.281-142.594,165.938
+	c-90.844,12.562-189.75-76.781-189.75-165.938S156.094,85.844,247.875,84.906C355.688,83.875,414,167.219,414,256.375z"/>
+<circle id="XMLID_401_" fill="#5FC5E5" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="409.312" cy="46.938" r="24.938"/>
+<circle id="XMLID_400_" fill="#A8C97D" cx="248.719" cy="300.062" r="4.688"/>
+<circle id="XMLID_399_" fill="#5940D3" cx="272.25" cy="198.812" r="7.594"/>
+<circle id="XMLID_398_" fill="#A845AD" cx="162.469" cy="452.5" r="10.594"/>
 <path id="XMLID_397_" fill="none" stroke="#414042" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M362.438,143.781c-4.5-12.844-15.844-20.625-25.5-17.25"/>
-<circle id="XMLID_396_" fill="#B991E8" cx="167.156" cy="39.625" r="4.688"/>
-<circle id="XMLID_394_" fill="#76A2D6" cx="225.281" cy="237.344" r="4.688"/>
-<circle id="XMLID_393_" fill="#D37433" cx="356.906" cy="34.938" r="7.219"/>
-<path id="XMLID_392_" fill="none" stroke="#414042" stroke-width="4" stroke-miterlimit="10" d="M429.094,268.75
-	c18.938,21.094,27,40.594,20.906,55.312c-15.938,38.062-121.406,30-235.406-17.812S20.906,188.688,36.938,150.625
+	M362.438,155.781c-4.5-12.844-15.844-20.625-25.5-17.25"/>
+<circle id="XMLID_396_" fill="#B991E8" cx="167.156" cy="51.625" r="4.688"/>
+<circle id="XMLID_394_" fill="#76A2D6" cx="225.281" cy="249.344" r="4.688"/>
+<circle id="XMLID_393_" fill="#D37433" cx="356.906" cy="46.938" r="7.219"/>
+<path id="XMLID_392_" fill="none" stroke="#414042" stroke-width="4" stroke-miterlimit="10" d="M429.094,280.75
+	c18.938,21.094,27,40.594,20.906,55.312c-15.938,38.062-121.406,30-235.406-17.812S20.906,200.688,36.938,162.625
 	c7.219-17.25,32.719-25.031,69.094-23.906"/>
-<circle id="XMLID_391_" fill="#F7941E" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="193.406" cy="207.906" r="21.187"/>
+<circle id="XMLID_391_" fill="#F7941E" stroke="#414042" stroke-width="4" stroke-miterlimit="10" cx="193.406" cy="219.906" r="21.187"/>
 <path id="XMLID_274_" fill="none" stroke="#414042" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M365.625,95.688c27.094-8.156,43.594-6.375,54.281,5.438c27.656,30.562-24.375,122.625-116.156,205.594
-	S115.125,432.062,87.469,401.406C75,387.531,73.688,371.875,90.094,339.438"/>
+	M365.625,107.688c27.094-8.156,43.594-6.375,54.281,5.438c27.656,30.562-24.375,122.625-116.156,205.594
+	S115.125,444.062,87.469,413.406C75,399.531,73.688,383.875,90.094,351.438"/>
 </svg>

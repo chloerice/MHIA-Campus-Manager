@@ -122,6 +122,11 @@ body {
   background-color: rgba(38, 23, 97, 0.5);
 }
 
+.navbar-default .navbar-nav .open .dropdown-menu>.active>a,
+.navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover {
+  background: none;
+}
+
 .navbar-default .navbar-toggle .icon-bar {
   background: #7C9EB2;
 }
@@ -131,18 +136,33 @@ body {
 }
 
 .jumbotron {
-  background: none;
   padding-top: 60px;
   margin-bottom: 0;
+  min-height: 100vh; /* this ensures the div is at least the full size of the display if the content does not entirely fill it */
+  /* current browsers */
+  background: linear-gradient(260deg, rgba(81,88,187,1) 1%, rgba(81,88,187,1) 22%, rgba(4,53,101,1) 96%, rgba(4,53,101,1) 100%);
+  /* ff3.6+ */
+  background: -moz-linear-gradient(190deg, rgba(81,88,187,1) 1%, rgba(81,88,187,1) 22%, rgba(4,53,101,1) 96%, rgba(4,53,101,1) 100%);
+  /* safari4+,chrome */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(4,53,101,1)), color-stop(4%, rgba(4,53,101,1)), color-stop(78%, rgba(81,88,187,1)), color-stop(99%, rgba(81,88,187,1)));
+  /* safari5.1+,chrome10+ */
+  background: -webkit-linear-gradient(190deg, rgba(81,88,187,1) 1%, rgba(81,88,187,1) 22%, rgba(4,53,101,1) 96%, rgba(4,53,101,1) 100%);
+  /* opera 11.10+ */
+  background: -o-linear-gradient(190deg, rgba(81,88,187,1) 1%, rgba(81,88,187,1) 22%, rgba(4,53,101,1) 96%, rgba(4,53,101,1) 100%);
+  /* ie6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#043565', endColorstr='#5158BB',GradientType=1 );
+  /* ie10+ */
+  background: -ms-linear-gradient(190deg, rgba(81,88,187,1) 1%, rgba(81,88,187,1) 22%, rgba(4,53,101,1) 96%, rgba(4,53,101,1) 100%);
 }
 
 .jumbotron h1 {
-  margin: 20px;
-  font-size: 6vw;
+  margin: 0px 0px 15px 0px;
+  font-size: 8vw;
   color: #7C9EB2;
 }
 
 .jumbotron p {
+  margin: 0;
   color: #7C9EB2;
 }
 
@@ -157,12 +177,10 @@ a:hover {
 
 .btn-default {
   color: #7C9EB2;
-  background: #52528C;
+  background: rgba(82, 82, 140, 0.5);
   border: none;
   display: inline !important;
   margin-bottom: 30px;
-  margin-left: 30%;
-  margin-right: 30%
 }
 
 .btn-default:hover, .btn-default:active, .btn-default:focus {
@@ -197,15 +215,23 @@ select {
 }
 
 .panel {
-  margin: 0px 20px 20px 0 ;
+  margin: 30px;
   border: none;
   width: 80vw;
   display: inline-block;
-  background: none;
+  background: rgba(82, 82, 140, 0.5);
 }
 
 form {
   display: inline;
+}
+
+.form-inline .form-group {
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin: 15px
 }
 
 .form-control {
@@ -243,7 +269,7 @@ th {
 }
 
 .img-thumbnail {
-  margin: 30px 15px 15px 30px;
+  margin: 33px 15px 0px 15px;
   height: 80px;
   width: 80px !important;
   vertical-align: middle;
