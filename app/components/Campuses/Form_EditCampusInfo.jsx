@@ -11,9 +11,12 @@ class EditCampusInfoForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      values: {}
+      nameVal: {},
+      imageVal: {}
     }
 
+    this.campusNameIsUnique = this.campusNameIsUnique.bind(this)
+    this.doubleCheckUpdateVals = this.doubleCheckUpdateVals.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
@@ -28,50 +31,96 @@ class EditCampusInfoForm extends Component {
       return false
     }
 
-    if (this.state.name) {
-      if (isCapitalized(this.state.name)) return 'success'
-      else return 'error'
+    if (this.state.nameVal.name) {
+      if (isCapitalized(this.state.nameVal.name)) return 'success'
+      else return 'warning'
     }
     return null // don't validate if no name has been input
   }
 
   handleChange(event) {
-    let newVals = {},
-        target = event.target.id
-    newVals[target] = event.target.value
-    this.setState({ values: newVals })
+    let target = event.target.id,
+        newVal = {}
+    newVal[target] = event.target.value
+    if (target === 'name') {
+      this.setState({ nameVal: newVal })
+    } else if (
+      target === 'image' &&
+      event.target.value !== 'Update Logo') {
+      this.setState({ imageVal: newVal })
+    }
+  }
+
+  campusNameIsUnique(name) {
+    const campusesWithName = this.props.campuses.filter(campus => campus.name === name)
+    return campusesWithName.length === 0
+  }
+
+  doubleCheckUpdateVals() {
+    const inputCampusName = this.state.nameVal.name
+    const selectedLogo = this.state.imageVal.image
+
+    // no submitting w/ an empty form!
+    if (inputCampusName === undefined && selectedLogo === undefined) {
+      alert('A name or a logo are required to update the campus.')
+      return false
+    }
+    // no submitting with a non-unique campusName!
+    if (inputCampusName !== undefined) {
+      if (!this.campusNameIsUnique(inputCampusName)) {
+        alert(`There is already a campus with the name ${inputCampusName}. Please enter a unique name for updating the campus.`)
+        return false
+      // no submitting with a validation warning/error!
+      } else if (this.getValidationState(inputCampusName, 'campusName') !== 'success') {
+        alert('Please input a capitalized campus name.')
+        return false
+      }
+    }
+
+    return true
   }
 
   handleUpdate(event) {
     event.preventDefault() // don't refresh the page, man.
-    const campusInfo = Object.assign({}, this.state.values) // grab form input val(s)
-    this.setState({ values: {} }) // clear the form
-    this.props.dispatch(updateCampusThenRerenderIt(this.props.currentCampus.id, campusInfo)) // update the campus
+    const inputCampusName = this.state.nameVal.name
+    const selectedLogo = this.state.imageVal.image
+    const okayToSubmit = this.doubleCheckUpdateVals()
+
+    if (okayToSubmit) {
+      // grab form input val(s)
+      let campusInfo = {}
+      if (inputCampusName && inputCampusName !== '') {
+        campusInfo.name = inputCampusName
+      } else if (selectedLogo) {
+        campusInfo.image = selectedLogo
+      }
+      // clear the form
+      this.setState({ nameVal: {}, imageVal: {} })
+      this.props.dispatch(updateCampusThenRerenderIt(this.props.currentCampus.id, campusInfo))
+    }
   }
 
   render() {
 
     return (
       <Form onSubmit={this.handleUpdate}>
-        <p>{`Edit Campus Profile`}</p>
+        <p>Edit Campus Profile</p>
         <FormGroup
           controlId="name"
           validationState={this.getValidationState()}>
           <FormControl
             type="text"
-            value={this.state.values.name || ''}
+            value={this.state.nameVal.name || ''}
             placeholder="Update campus name"
             onChange={this.handleChange} />
           <FormControl.Feedback />
           <HelpBlock>Name must be capitalized.</HelpBlock>
         </FormGroup>
-        <FormGroup
-          controlId="image"
-          validationState={this.getValidationState(this.state.image, 'logoURL')}>
+        <FormGroup controlId="image">
           <FormControl
             componentClass="select"
             type="text"
-            value={this.state.values.image}
+            value={this.state.imageVal.image || ''}
             onChange={(event) => this.handleChange(event)}>
             <option>Update Logo</option>
             <option value="/img/terra.svg">Terra</option>
@@ -88,7 +137,7 @@ class EditCampusInfoForm extends Component {
         </FormGroup>
         <Image
           thumbnail
-          src={ !this.state.image ? '/img/terra.svg' : this.state.image }
+          src={ !this.state.imageVal.image ? '/img/terra.svg' : this.state.imageVal.image }
           alt={'logo'} />
         <UpdateButton
           loading={this.props.loading}
@@ -100,6 +149,7 @@ class EditCampusInfoForm extends Component {
 }
 
 EditCampusInfoForm.propTypes = {
+  campuses: PropTypes.array.isRequired,
   currentCampus: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,

@@ -175,6 +175,14 @@ a:hover {
   color: #E8904D;
 }
 
+.panel {
+  margin: 30px 0px 30px 0px;
+  border: none;
+  width: 80vw;
+  display: inline-block;
+  background: rgba(82, 82, 140, 0.5);
+}
+
 .btn-default {
   color: #7C9EB2;
   background: rgba(82, 82, 140, 0.5);
@@ -197,10 +205,6 @@ a:hover {
   margin: 25px
 }
 
-.panel {
-  border: none;
-}
-
 input, select {
   margin: 15px;
   height: 50px !important;
@@ -212,14 +216,6 @@ input, select {
 select {
   vertical-align: middle;
   float: left;
-}
-
-.panel {
-  margin: 30px;
-  border: none;
-  width: 80vw;
-  display: inline-block;
-  background: rgba(82, 82, 140, 0.5);
 }
 
 form {

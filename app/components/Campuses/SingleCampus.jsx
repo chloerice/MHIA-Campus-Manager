@@ -15,9 +15,9 @@ class SingleCampus extends Component {
     super(props)
 
     this.state = {
-      deleting: false
+      deleting: false,
     }
-
+    this.campusRoster = this.campusRoster.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
   }
 
@@ -25,9 +25,13 @@ class SingleCampus extends Component {
     this.props.dispatch(readCampusThenRenderIt(this.props.params.id))
   }
 
+  campusRoster() {
+    return this.props.students.filter(student => student.campusId === this.props.currentCampus.id)
+  }
+
   handleDelete(event) {
     // b/c the button is linked, event in this case is to navigate to the AllCampuses page, so we don't want to prevent that default action unless there's a warning preventing the deletion!
-    if (!this.props.students.length > 0) {
+    if (this.campusRoster().length === 0) {
       const id = this.props.currentCampus.id
       this.setState({ deleting: true })
       this.props.dispatch( deleteCampusThenRerenderAll(id) )
@@ -39,7 +43,6 @@ class SingleCampus extends Component {
 
   render() {
     const deleting = this.state.deleting
-    const campusRoster = this.props.students.filter(student => student.campusId === this.props.currentCampus.id)
 
     return (
       <Jumbotron>
@@ -48,7 +51,7 @@ class SingleCampus extends Component {
           <Row>
             <Col className="campus-roster" xs={12} sm={12} md={7} lg={7}>
               <StudentTable
-                students={campusRoster}
+                students={this.campusRoster()}
                 campuses={this.props.campuses}
                 showCampusName={false}
                 handleClick={this.props.handleClick} />
@@ -56,6 +59,7 @@ class SingleCampus extends Component {
             <Col xs={12} sm={12} md={5} lg={5}>
               <div className="edit-campus-form">
                 <EditCampusInfo
+                  campuses={this.props.campuses}
                   currentCampus={this.props.currentCampus}
                   dispatch={this.props.dispatch}
                   loading={deleting ? false : this.props.loading} />

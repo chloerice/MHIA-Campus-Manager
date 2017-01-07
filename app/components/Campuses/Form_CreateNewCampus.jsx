@@ -1,15 +1,19 @@
 import React, { Component, PropTypes } from 'react'
-import { Form, FormGroup, FormControl, HelpBlock, Button, Image } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, HelpBlock, Image } from 'react-bootstrap'
 import { createCampusThenRerenderAll } from '../../reducers/actions/receivingCampuses'
+
+import CreateButton from '../utilities/CreateButton'
 
 class CreateNewCampusForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      image: ''
+      nameVal: {},
+      imageVal: {}
     }
 
+    this.campusNameIsUnique = this.campusNameIsUnique.bind(this)
+    this.doubleCheckCampusVals = this.doubleCheckCampusVals.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
@@ -25,45 +29,77 @@ class CreateNewCampusForm extends Component {
     }
 
     if (type === 'logoURL') {
-      if (!input.length) return 'error'
+      if (!input || input === 'Select') return 'error'
       return 'success'
     }
 
     if (type === 'campusName') {
-      if (input.length) {
+      if (input) {
         if (isCapitalized(input)) return 'success'
-        else return 'warning'
-      } else {
-        return null // don't validate if no name has been input
+        return 'warning'
       }
+      return 'error'
     }
   }
 
+  campusNameIsUnique(name) {
+    const campusesWithName = this.props.campuses.filter(campus => campus.name === name)
+    return campusesWithName.length === 0
+  }
+
+  doubleCheckCampusVals() {
+    const inputCampusName = this.state.nameVal.name
+    const selectedLogo = this.state.imageVal.image
+
+    // no submitting w/empty fields!
+    if (!inputCampusName || !selectedLogo) {
+      alert('Both a name and a logo are required to create a new campus.')
+      return false
+      // no submitting with a non-unique campusName!
+    } else if (!this.campusNameIsUnique(inputCampusName)) {
+      alert(`There is already a campus with the name ${inputCampusName}. Please enter a unique name for the new campus.`)
+      return false
+      // no submitting with a validation warning/error!
+    } else if (this.getValidationState(inputCampusName, 'campusName') !== 'success') {
+      alert('Please input a capitalized campus name.')
+      return false
+    }
+
+    return true
+  }
+
   handleChange(event) {
-    let newState = {},
-        target = event.target.id
-    newState[target] = event.target.value
-    this.setState(newState)
+    let target = event.target.id,
+        newVal = {}
+    newVal[target] = event.target.value
+    if (target === 'name') this.setState({ nameVal: newVal })
+    else this.setState({ imageVal: newVal })
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    const campus = Object.assign({}, this.state)
-    this.setState({name: '', image: ''}) // clear the form
-    this.props.dispatch(createCampusThenRerenderAll(campus))
+    event.preventDefault() // don't refresh the page, man.
+    const okayToSubmit = this.doubleCheckCampusVals()
+    if (okayToSubmit) {
+      const newCampus = {
+        name: this.state.nameVal.name,
+        image: this.state.imageVal.image
+      }
+      this.setState({ nameVal: {}, imageVal: {} }) // clear the form
+      this.props.dispatch(createCampusThenRerenderAll(newCampus))
+    }
   }
 
   render() {
-    const loading = this.props.loading
+    let loading = this.props.loading
 
     return (
       <Form inline onSubmit={this.handleSubmit}>
         <FormGroup
           controlId="name"
-          validationState={this.getValidationState(this.state.name, 'campusName')}>
+          validationState={this.getValidationState(this.state.nameVal.name, 'campusName')}>
           <FormControl
             type="text"
-            value={this.state.name}
+            value={this.state.nameVal.name || ''}
             placeholder="Enter a name"
             onChange={this.handleChange} />
           <FormControl.Feedback />
@@ -71,11 +107,11 @@ class CreateNewCampusForm extends Component {
         </FormGroup>
         <FormGroup
           controlId="image"
-          validationState={this.getValidationState(this.state.image, 'logoURL')}>
+          validationState={this.getValidationState(this.state.imageVal.image, 'logoURL')}>
           <FormControl
             componentClass="select"
             type="text"
-            value={this.state.image}
+            value={this.state.imageVal.image || ''}
             onChange={(event) => this.handleChange(event)}>
             <option>Select</option>
             <option value="/img/terra.svg">Terra</option>
@@ -92,15 +128,12 @@ class CreateNewCampusForm extends Component {
         </FormGroup>
         <Image
           thumbnail
-          src={ !this.state.image.length ? '/img/terra.svg' : this.state.image }
+          src={ !this.state.imageVal.image ? '/img/terra.svg' : this.state.imageVal.image }
           alt={'logo'} />
-        <Button
-          className="btn-submit"
-          type="submit"
-          bsStyle="primary">
-          { loading ?
-            `Saving new campus ${this.state.name}...` : 'Save New Campus'}
-        </Button>
+        <CreateButton
+          name={this.state.nameVal.name || ''}
+          type={'Campus'}
+          loading={loading}/>
       </Form>
     )
   }
@@ -108,7 +141,8 @@ class CreateNewCampusForm extends Component {
 
 CreateNewCampusForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  campuses: PropTypes.array.isRequired
 }
 
 export default CreateNewCampusForm

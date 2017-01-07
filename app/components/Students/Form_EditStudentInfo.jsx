@@ -10,9 +10,11 @@ class EditStudentInfoForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      values: {}
+      nameVal: {},
+      campusNameVal: {}
     }
 
+    this.doubleCheckUpdateVals = this.doubleCheckUpdateVals.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
@@ -27,28 +29,64 @@ class EditStudentInfoForm extends Component {
       return false
     }
 
-    if (this.state.name) {
-      if (isCapitalized(this.state.name)) return 'success'
-      else return 'error'
+    if (this.state.nameVal.name) {
+      if (isCapitalized(this.state.nameVal.name)) return 'success'
+      else return 'warning'
     }
     return null // don't validate if no name has been input
   }
 
   handleChange(event) {
-    let newVals = {},
-        target = event.target.id,
-        value = event.target.value
-    if (value !== 'Assign a new campus') {
-      newVals[target] = value
+    let target = event.target.id,
+        newVal = {}
+    newVal[target] = event.target.value
+
+    if (target === 'name') {
+      this.setState({ nameVal: newVal })
+    } else if (
+      target === 'campusName' &&
+      event.target.value !== 'Assign a new campus') {
+      this.setState({ campusNameVal: newVal })
     }
-    this.setState({ values: newVals })
+  }
+
+  doubleCheckUpdateVals() {
+    const selectedCampusName = this.state.campusNameVal.campusName
+    const inputStudentName = this.state.nameVal.name
+    // no updating w/ an empty form!
+    if (inputStudentName === undefined && selectedCampusName === undefined) {
+      alert('A new student name or campus is required to update the student.')
+      return false
+    } else if (inputStudentName !== undefined) {
+      // no updating with a validation warning/error!
+      if (this.getValidationState(inputStudentName, 'studentName') !== 'success') {
+        alert('Please input a capitalized student name.')
+        return false
+      }
+    }
+
+    return true
   }
 
   handleUpdate(event) {
     event.preventDefault() // don't refresh the page, man.
-    const studentInfo = Object.assign({}, this.state.values) // grab form input val(s)
-    this.setState({ values: {} }) // clear the form
-    this.props.dispatch(updateStudentThenRerenderIt(this.props.currentStudent.id, studentInfo)) // update the student
+
+    const selectedCampusName = this.state.campusNameVal.campusName
+    const inputStudentName = this.state.nameVal.name
+    const okayToSubmit = this.doubleCheckUpdateVals()
+
+    if (okayToSubmit) {
+      // grab form input val(s)
+      let studentInfo = {}
+      if (inputStudentName && inputStudentName !== '') {
+        studentInfo.name = inputStudentName
+      } else if (selectedCampusName) {
+        studentInfo.campusName = selectedCampusName
+      }
+      // clear the form
+      this.setState({ nameVal: {}, campusNameVal: {} })
+      this.props.dispatch(updateStudentThenRerenderIt(this.props.currentStudent.id, studentInfo))
+    }
   }
 
   render() {
@@ -61,7 +99,7 @@ class EditStudentInfoForm extends Component {
           validationState={this.getValidationState()}>
           <FormControl
             type="text"
-            value={this.state.values.name || ''}
+            value={this.state.nameVal.name || ''}
             placeholder="Update student name"
             onChange={this.handleChange} />
           <FormControl.Feedback />
@@ -71,9 +109,9 @@ class EditStudentInfoForm extends Component {
           <FormControl
             componentClass="select"
             type="text"
-            value={this.state.values.campusName}
+            value={this.state.campusNameVal.campusName || ''}
             onChange={this.handleChange}>
-            <option>{'Assign a new campus'}</option>
+            <option value={undefined}>{'Assign a new campus'}</option>
             {
               this.props.campuses.map(campus => {
                 return <option key={campus.id} value={campus.name}>{campus.name}</option>

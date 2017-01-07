@@ -1,15 +1,10 @@
 import { connect } from 'react-redux'
 
-import { receiveStudent } from '../reducers/actions/receivingStudents'
-import {
-  updateCampusThenRerenderIt,
-  deleteCampusThenRerenderAll,
-  updateStudentCampusThenRerenderIt } from '../reducers/actions/receivingCampuses'
-
 import SingleCampus from '../components/campuses/SingleCampus'
 
 const mapStateToProps = (state) => {
   return {
+    campuses: state.campuses,
     students: state.students,
     currentCampus: state.currentCampus,
     currentStudent: state.currentStudent
@@ -17,18 +12,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const campus = ownProps.currentCampus
-  const student = ownProps.currentStudent
   return {
-    handleUpdate: () => {
-      dispatch(updateCampusThenRerenderIt(campus))
-    },
-    handleDelete: () => {
-      dispatch(deleteCampusThenRerenderAll(campus))
-    },
-    handleReassignment: () => {
-      dispatch(updateStudentCampusThenRerenderIt(student, campus))
-    }
+    dispatch,
+    handleClick: ownProps.handleClick
   }
 }
 
