@@ -64,7 +64,7 @@ class SingleCampus extends Component {
                   onClick={this.handleDelete}>
                   <DeleteButton
                     loading={ !deleting ? false : this.props.loading }
-                    objType="Student"
+                    objType="Campus"
                     name={this.props.currentCampus.name || ''}/>
                 </Link>
               </div>
