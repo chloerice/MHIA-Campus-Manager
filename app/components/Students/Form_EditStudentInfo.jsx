@@ -61,6 +61,7 @@ class EditStudentInfoForm extends Component {
       // no updating with a validation warning/error!
       if (this.getValidationState(inputStudentName, 'studentName') !== 'success') {
         alert('Please input a capitalized student name.')
+        this.setState({ nameVal: {} })
         return false
       }
     }

@@ -2,20 +2,20 @@
 
 const Sequelize = require('sequelize')
 const db = require('../index')
-const Promise = require('bluebird')
 
 const Student = db.define('student', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: false
   },
   email: {
     type: Sequelize.STRING,
-    unique: true
   },
   campusName: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: false
   }
 }, {
   hooks: {
@@ -32,11 +32,14 @@ const Student = db.define('student', {
       const campusName = this.campusName.toLowerCase()
 
       return Student.findAll({
-        where: { name, campusName }
+        where: {
+          name: this.name,
+          campusName: this.campusName
+        }
       })
       .then(students => {
         if (students.length < 2 ) { // if name is unique to campus, generate email normally
-          this.email = `${name}@${campusName}.mhia.edu`
+          this.email = `${this.name}@${this.campusName}.mhia.edu`
         } else {
           // otherwise, add an integer after the student's name to generate unique email
           const num = students.length

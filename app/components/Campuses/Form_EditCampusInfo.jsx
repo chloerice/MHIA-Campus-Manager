@@ -69,10 +69,12 @@ class EditCampusInfoForm extends Component {
     if (inputCampusName !== undefined) {
       if (!this.campusNameIsUnique(inputCampusName)) {
         alert(`There is already a campus with the name ${inputCampusName}. Please enter a unique name for updating the campus.`)
+        this.setState({ nameVal: {} })
         return false
       // no submitting with a validation warning/error!
       } else if (this.getValidationState(inputCampusName, 'campusName') !== 'success') {
         alert('Please input a capitalized campus name.')
+        this.setState({ nameVal: {} })
         return false
       }
     }
