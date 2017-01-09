@@ -9,6 +9,9 @@
     "build-watch": "webpack -w",
     "start": "nodemon server/start.js"
   },
+  "engines": {
+    "node": "6.9.1"
+  },
   "keywords": [
     "react",
     "redux"
