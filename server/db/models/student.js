@@ -2,7 +2,11 @@
 
 const Sequelize = require('sequelize')
 const db = require('../index')
-
+// currently have a bug that disallows creating more than
+// one student with the same name and campus, so many changes have been made
+// since that was initially working I'm not sure where the validation error
+// stems from ... (tried a beforeValidate hook instead of beforeCreate/Update
+// but that isn't it...)
 const Student = db.define('student', {
   name: {
     type: Sequelize.STRING,
