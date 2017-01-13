@@ -42,6 +42,6 @@
     "babel-preset-react": "^6.16.0",
     "nodemon": "^1.11.0",
     "volleyball": "^1.4.1",
-    "webpack": "^1.13.3"
+    "webpack": "^1.14.0"
   }
 }
