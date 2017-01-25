@@ -38,7 +38,8 @@ App.propTypes = {
   currentCampus: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  grabStudents: PropTypes.func.isRequired,
+  grabCampuses: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired
 }
 
