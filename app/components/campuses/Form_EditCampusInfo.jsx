@@ -98,7 +98,7 @@ class EditCampusInfoForm extends Component {
       }
       // clear the form
       this.setState({ nameVal: {}, imageVal: {} })
-      this.props.dispatch(updateCampusThenRerenderIt(this.props.currentCampus.id, campusInfo))
+      this.props.updateCampus(updateCampusThenRerenderIt(this.props.currentCampus.id, campusInfo))
     }
   }
 
@@ -153,7 +153,7 @@ class EditCampusInfoForm extends Component {
 EditCampusInfoForm.propTypes = {
   campuses: PropTypes.array.isRequired,
   currentCampus: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  updateCampus: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 }
 

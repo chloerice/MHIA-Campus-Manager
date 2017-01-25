@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 
 import SingleCampus from '../components/campuses/SingleCampus'
+import { readCampusThenRenderIt,
+         deleteCampusThenRerenderAll,
+         updateCampusThenRerenderIt } from '../../reducers/actions/receivingCampuses'
 
 const mapStateToProps = (state) => {
   return {
@@ -13,7 +16,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    dispatch,
+    grabCurrentCampus: (id) => dispatch(readCampusThenRenderIt(id)),
+    deleteCampus: (id) => dispatch(deleteCampusThenRerenderAll(id)),
+    updateCampus: (id, info) => dispatch(updateCampusThenRerenderIt(id, info)),
     handleClick: ownProps.handleClick
   }
 }

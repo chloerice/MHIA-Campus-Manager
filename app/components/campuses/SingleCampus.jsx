@@ -7,9 +7,6 @@ import StudentTable from '../utilities/StudentTable'
 import DeleteButton from '../utilities/DeleteButton'
 import EditCampusInfo from './Form_EditCampusInfo'
 
-import { readCampusThenRenderIt,
-         deleteCampusThenRerenderAll } from '../../reducers/actions/receivingCampuses'
-
 class SingleCampus extends Component {
   constructor(props) {
     super(props)
@@ -22,7 +19,7 @@ class SingleCampus extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(readCampusThenRenderIt(this.props.params.id))
+    this.props.grabCurrentCampus(this.props.params.id)
   }
 
   campusRoster() {
@@ -34,7 +31,7 @@ class SingleCampus extends Component {
     if (this.campusRoster().length === 0) {
       const id = this.props.currentCampus.id
       this.setState({ deleting: true })
-      this.props.dispatch( deleteCampusThenRerenderAll(id) )
+      this.props.deleteCampus(id)
     } else {
       event.preventDefault()
       alert(`Cannot delete campus ${this.props.currentCampus.name} before reassigning its students to another campus!`)
@@ -61,7 +58,7 @@ class SingleCampus extends Component {
                 <EditCampusInfo
                   campuses={this.props.campuses}
                   currentCampus={this.props.currentCampus}
-                  dispatch={this.props.dispatch}
+                  updateCampus={this.props.updateCampus}
                   loading={deleting ? false : this.props.loading} />
                 <Link
                   to="/campuses"
@@ -86,7 +83,9 @@ SingleCampus.propTypes = {
   campuses: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   params: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  grabCurrentCampus: PropTypes.func.isRequired,
+  updateCampus: PropTypes.func.isRequired,
+  deleteCampus: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 

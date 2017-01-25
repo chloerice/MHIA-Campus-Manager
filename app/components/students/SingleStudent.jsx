@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { Jumbotron, Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router'
 
-import { readStudentThenRenderIt,
-         deleteStudentThenRerenderAll } from '../../reducers/actions/receivingStudents'
-
 import DeleteButton from '../utilities/DeleteButton'
 import EditStudentInfo from './Form_EditStudentInfo'
 import Student from './Student'
@@ -21,14 +18,15 @@ class SingleStudent extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(readStudentThenRenderIt(this.props.params.id))
+    this.props.grabCurrentStudent(this.props.params.id)
   }
 
   handleDelete(event) {
-    // b/c the button is linked, event in this case is to navigate to the AllStudents page, so we don't want to prevent that default action!
+    // b/c the button is linked, event in this case is to navigate to the
+    // AllStudents page, so we don't want to prevent that default action!
     const id = this.props.currentStudent.id
     this.setState({ deleting: true })
-    this.props.dispatch( deleteStudentThenRerenderAll(id) )
+    this.props.deleteStudent(id)
   }
 
   render() {
@@ -47,7 +45,7 @@ class SingleStudent extends Component {
                 <EditStudentInfo
                   campuses={this.props.campuses}
                   currentStudent={this.props.currentStudent}
-                  dispatch={this.props.dispatch}
+                  updateStudent={this.props.updateStudent}
                   loading={ deleting ? false : this.props.loading } />
                 <Link to="/students" onClick={this.handleDelete}>
                   <DeleteButton
@@ -69,8 +67,10 @@ SingleStudent.propTypes = {
   campuses: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   params: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired
+  grabCurrentStudent: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  deleteStudent: PropTypes.func.isRequired,
+  updateStudent: PropTypes.func.isRequired
 }
 
 export default SingleStudent

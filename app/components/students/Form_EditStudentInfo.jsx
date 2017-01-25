@@ -1,7 +1,6 @@
 // create, update, or delete student (name, email, campusName)
 import React, { Component, PropTypes } from 'react'
 import { Form, FormGroup, FormControl, HelpBlock } from 'react-bootstrap'
-import { updateStudentThenRerenderIt } from '../../reducers/actions/receivingStudents'
 
 import UpdateButton from '../utilities/UpdateButton'
 
@@ -86,7 +85,7 @@ class EditStudentInfoForm extends Component {
       }
       // clear the form
       this.setState({ nameVal: {}, campusNameVal: {} })
-      this.props.dispatch(updateStudentThenRerenderIt(this.props.currentStudent.id, studentInfo))
+      this.props.updateStudent(this.props.currentStudent.id, studentInfo)
     }
   }
 
@@ -113,11 +112,9 @@ class EditStudentInfoForm extends Component {
             value={this.state.campusNameVal.campusName || ''}
             onChange={this.handleChange}>
             <option value={undefined}>{'Assign a new campus'}</option>
-            {
-              this.props.campuses.map(campus => {
+            { this.props.campuses.map(campus => {
                 return <option key={campus.id} value={campus.name}>{campus.name}</option>
-              })
-            }
+              }) }
           </FormControl>
         </FormGroup>
         <UpdateButton
@@ -132,7 +129,7 @@ class EditStudentInfoForm extends Component {
 EditStudentInfoForm.propTypes = {
   campuses: PropTypes.array.isRequired,
   currentStudent: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  updateStudent: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired
 }
 

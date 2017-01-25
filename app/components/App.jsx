@@ -9,7 +9,7 @@ import { readCampusThenRenderIt,
 import Navbar from './utilities/Navbar'
 
 //Returns our main application page, whose children will render based on state
-//     {props.children} === whichever component is currently active
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -25,6 +25,7 @@ class App extends Component {
       <div>
         <Navbar handleClick={this.props.handleClick} campuses={this.props.campuses}/>
         { this.props.children && React.cloneElement(this.props.children, this.props) }
+{/*       this.props.children === whichever route/component is currently active      */}
       </div>
     )
   }

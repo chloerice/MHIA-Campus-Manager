@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 
 import Student from '../components/students/SingleStudent'
+import { readStudentThenRenderIt,
+         deleteStudentThenRerenderAll,
+         updateStudentThenRerenderIt } from '../../reducers/actions/receivingStudents'
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +15,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    dispatch,
+    grabCurrentStudent: (id) => dispatch(readStudentThenRenderIt(id)),
+    deleteStudent: (id) => dispatch(deleteStudentThenRerenderAll(id)),
+    updateStudent: (id, infoToUpdate) => dispatch(updateStudentThenRerenderIt(id, infoToUpdate)),
     handleClick: ownProps.handleClick
   }
 }
