@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Student from '../components/students/SingleStudent'
 import { readStudentThenRenderIt,
          deleteStudentThenRerenderAll,
-         updateStudentThenRerenderIt } from '../../reducers/actions/receivingStudents'
+         updateStudentThenRerenderIt } from '../reducers/actions/receivingStudents'
 
 const mapStateToProps = (state) => {
   return {

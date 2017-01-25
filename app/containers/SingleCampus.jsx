@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SingleCampus from '../components/campuses/SingleCampus'
 import { readCampusThenRenderIt,
          deleteCampusThenRerenderAll,
-         updateCampusThenRerenderIt } from '../../reducers/actions/receivingCampuses'
+         updateCampusThenRerenderIt } from '../reducers/actions/receivingCampuses'
 
 const mapStateToProps = (state) => {
   return {
