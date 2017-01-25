@@ -1,2 +1,3 @@
-web: npm run build
-worker: npm start
+NODE_ENV=development npm install
+npm rebuild
+npm run build &
