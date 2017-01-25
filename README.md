@@ -1,6 +1,6 @@
-# Senior Enrichment Project
+# Senior Enrichment Project 
 
-Make a thing!
+## See deployed campus manager at https://mhia-campus-mgr.herokuapp.com/
 
 ## Getting started
 

@@ -16,8 +16,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(readCampusesThenRenderAll())
-    this.props.dispatch(readStudentsThenRenderAll())
+    this.props.grabCampuses()
+    this.props.grabStudents()
   }
 
   render() {
@@ -25,7 +25,7 @@ class App extends Component {
       <div>
         <Navbar handleClick={this.props.handleClick} campuses={this.props.campuses}/>
         { this.props.children && React.cloneElement(this.props.children, this.props) }
-{/*       this.props.children === whichever route/component is currently active      */}
+        {/* ^this.props.children === whichever route/component is currently active */}
       </div>
     )
   }
@@ -38,7 +38,8 @@ App.propTypes = {
   currentCampus: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  grabStudents: PropTypes.func.isRequired,
+  grabCampuses: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired
 }
 
@@ -55,7 +56,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
+    grabStudents: () => dispatch(readStudentsThenRenderAll()),
+    grabCampuses: () => dispatch(readCampusesThenRenderAll()),
     handleClick: (event, id, type) => {
       if (type === 'campus') return dispatch(readCampusThenRenderIt(id))
       if (type === 'student') return dispatch(readStudentThenRenderIt(id))
