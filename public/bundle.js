@@ -52265,7 +52265,7 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          'Interplanetary Academy of Javascript'
+	          'Interplanetary Academy of JavaScript'
 	        ),
 	        _react2.default.createElement(
 	          'h1',
