@@ -18,7 +18,7 @@ const User = db.define('users', {
   password_digest: Sequelize.STRING,
 	password: Sequelize.VIRTUAL
 }, {
-	indexes: [{fields: ['email'], unique: true,}],
+	indexes: [{fields: ['email'], unique: true}],
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,

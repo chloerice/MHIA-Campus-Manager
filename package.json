@@ -1,6 +1,6 @@
 {
   "name": "mhia_campus_manager",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "description": "An admin dashboard web app for an imaginary college district. Campus logos adapted from Brian Ondari's 'Out of the World' vector icons <--License: Creative Commons (Attribution 3.0 Unported)",
   "main": "server/start.js",
   "scripts": {
