@@ -1,11 +1,10 @@
 import { connect } from 'react-redux'
 
 import Student from '../components/students/SingleStudent'
-import { readStudentThenRenderIt,
-         deleteStudentThenRerenderAll,
+import { deleteStudentThenRerenderAll,
          updateStudentThenRerenderIt } from '../reducers/actions/receivingStudents'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     currentStudent: state.currentStudent,
     campuses: state.campuses,
@@ -13,12 +12,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
-    grabCurrentStudent: (id) => dispatch(readStudentThenRenderIt(id)),
     deleteStudent: (id) => dispatch(deleteStudentThenRerenderAll(id)),
     updateStudent: (id, infoToUpdate) => dispatch(updateStudentThenRerenderIt(id, infoToUpdate)),
-    handleClick: ownProps.handleClick
   }
 }
 

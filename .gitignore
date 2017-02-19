@@ -7,7 +7,10 @@ public/bundle.js.map
 
 # NPM errors
 npm-debug.log
+<<<<<<< HEAD
 
 .DS_Store
 
 /*.env
+=======
+>>>>>>> 2f1103393c69d3d38bff5e04b7e370247616309b

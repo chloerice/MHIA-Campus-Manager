@@ -98,7 +98,7 @@ class EditCampusInfoForm extends Component {
       }
       // clear the form
       this.setState({ nameVal: {}, imageVal: {} })
-      this.props.updateCampus(updateCampusThenRerenderIt(this.props.currentCampus.id, campusInfo))
+      this.props.updateCampus(this.props.currentCampus.id, campusInfo)
     }
   }
 

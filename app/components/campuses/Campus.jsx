@@ -11,17 +11,14 @@ const Campus = (props) => {
         className="campus-list-img"
         src={campus.image}
         alt={`${campus.name} campus logo`}>
-        <h2>
-          {campus.name}
-        </h2>
+        <h2>{campus.name}</h2>
       </Thumbnail>
     </Col>
   )
 }
 
 Campus.propTypes = {
-  campus: PropTypes.object.isRequired,
-  handleClick: PropTypes.func.isRequired
+  campus: PropTypes.object.isRequired
 }
 
 export default Campus

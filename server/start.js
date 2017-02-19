@@ -3,25 +3,59 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
+const passport = require('passport')
+const PrettyError = require('pretty-error')
+
 
 const pkg = require('../package.json')
 
 const app = express()
 
-if (process.env.NODE_ENV !== 'production') {
-  // Logging middleware (non-production only)
+if (!pkg.isProduction && !pkg.isTesting) {
+  // Logging middleware (dev only)
   app.use(require('volleyball'))
 }
 
+// Pretty error prints errors all pretty.
+const prettyError = new PrettyError();
+
+// Skip events.js and http.js and similar core node files.
+prettyError.skipNodeFiles()
+
+// Skip all the trace lines about express' core and sub-modules.
+prettyError.skipPackage('express')
+
 //The code below works because `.use` returns `this` which is `app`. So what we want to return in the `module.exports` is `app`, and we can chain on that declaration because each method invocation returns `app` after mutating based on the middleware functions
 module.exports = app
+  // We'll store the whole session in a cookie
+  .use(require('cookie-session')({
+    name: 'session',
+    keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
+  }))
+
+  // Body parsing middleware
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
-  .use(express.static(resolve(__dirname, '..', 'public'))) // Serve static files from ../public
-  .use('/api', require('./api')) // Serve our api
+
+  // Authentication middleware
+  .use(passport.initialize())
+  .use(passport.session())
+
+  // Serve static files from ../public
+  .use(express.static(resolve(__dirname, '..', 'public')))
+
+  // Serve our api
+  .use('/api', require('./api'))
+
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html'))) // Send index.html for any other requests.
 
   // notice the use of `_` as the first parameter above. This is a pattern for parameters that must exist, but you don't use or reference (or need) in the function body that follows.
+
+  .use((err, req, res, next) => {
+    console.log(prettyError.render(err))
+    res.status(500).send(err)
+    next()
+  })
 
 if (module === require.main) {
   // Start listening only if we're the main module.

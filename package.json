@@ -1,13 +1,17 @@
 {
-  "name": "MHIA_Campus_Manager",
+  "name": "mhia_campus_manager",
   "version": "0.0.1",
   "description": "An admin dashboard web app for an imaginary college district. Campus logos adapted from Brian Ondari's 'Out of the World' vector icons <--License: Creative Commons (Attribution 3.0 Unported)",
   "main": "server/start.js",
   "scripts": {
-    "test": "mocha **/*.test.js *.test.js",
-    "build": "webpack",
-    "build-watch": "webpack -w",
-    "start": "nodemon server/start.js"
+    "test": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --compilers js:babel-register app/**/*.test.js app/**/*.test.jsx db/**/*.test.js server/**/*.test.js",
+    "test-watch": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --compilers js:babel-register --watch app/**/*.test.js app/**/*.test.jsx db/**/*.test.js server/**/*.test.js",
+    "build": "check-node-version --node '>= 6.7.0' && bin/setup && webpack",
+    "build-watch": "check-node-version --node '>= 6.7.0' && bin/setup && webpack -w",
+    "build-branch": "bin/build-branch.sh",
+    "deploy-heroku": "bin/deploy-heroku.sh",
+    "start": "check-node-version --node '>= 6.7.0' && bin/setup && nodemon server/start.js",
+    "seed": "node db/seed.js"
   },
   "engines": {
     "node": "6.9.1"
@@ -18,13 +22,25 @@
   ],
   "dependencies": {
     "axios": "^0.15.3",
+    "babel-preset-stage-2": "^6.18.0",
+    "bcryptjs": "^2.4.0",
     "body-parser": "^1.15.2",
+    "chai-enzyme": "^0.5.2",
     "chalk": "^1.1.3",
+    "check-node-version": "^1.1.2",
+    "cookie-session": "^2.0.0-alpha.1",
+    "enzyme": "^2.5.1",
     "express": "^4.14.0",
     "libpq": "^1.8.5",
     "optimist": "^0.6.1",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-github2": "^0.1.10",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
     "pg": "^6.1.0",
-    "pg-native": "^1.10.0",
+    "pretty-error": "^2.0.2",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.3.2",
@@ -34,7 +50,9 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.0",
     "redux-thunk": "^2.1.0",
-    "sequelize": "^3.24.6"
+    "sequelize": "^3.24.6",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -43,6 +61,10 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "nodemon": "^1.11.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "supertest": "^2.0.1",
+    "supertest-as-promised": "^4.0.1",
     "volleyball": "^1.4.1",
     "webpack": "^1.14.0"
   }

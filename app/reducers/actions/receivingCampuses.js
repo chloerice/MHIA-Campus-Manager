@@ -7,8 +7,6 @@ import { requestStudents,
          readingStudents,
          updateStudents,
          updatingStudents } from './loadingStudents'
-
-
 import { requestCampuses,
          createCampus,
          requestCampus,
@@ -86,7 +84,7 @@ export function updateCampusThenRerenderIt(id, info) {
         return updatingStudents(updatedCampus)
       })
       .then(updatedStudents => {
-        // grab the whole list of students so we our students prop is up to date
+        // grab the whole list of students so our students prop is up to date
         dispatch(requestStudents())
         return readingStudents()
       })

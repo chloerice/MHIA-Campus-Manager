@@ -18,8 +18,7 @@ const NavBar = (props) => (
             return (
               <LinkContainer
                 to={{pathname: `/campuses/${campus.id}`, query: ''}}
-                key={+`1.${campus.id}`}
-                onClick={(event) => props.handleClick(event, campus.id, 'campus')}>
+                key={+`1.${campus.id}`}>
                 <MenuItem
                   eventKey={+`1.${campus.id}` /* '+' converts to number */}>
                   {campus.name}

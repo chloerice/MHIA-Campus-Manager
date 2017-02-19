@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { Table } from 'react-bootstrap'
 // ** Rendered by AllStudents & SingleCampus(<--via Students)  ** //
 // Returns a table of students w/ name(<--linked), email, and campus(<--linked)
-const StudentTable = (props) => (
+const StudentTable = props => (
   <Table striped bordered responsive hover>
     <thead>
       <tr>
@@ -13,40 +13,29 @@ const StudentTable = (props) => (
       </tr>
     </thead>
     <tbody>
-      { props.students.map((student, index) => {
-          return (
-            <tr key={index}>
+      { props.students.map(student => (
+            <tr key={student.id}>
               <td>
-                <Link
-                  to={`/students/${student.id}`}
-                  onClick={event => props.handleClick(event, student.id, 'student')}>
+                <Link to={`/students/${student.id}`}>
                   {student.name}
                 </Link>
               </td>
               <td>{student.email}</td>
-              {
-                props.showCampusName &&
+              { props.showCampusName &&
                 <td>
-                  <Link
-                    to={`/campuses/${student.campusId}`}
-                    onClick={event => props.handleClick(event, student.campusId, 'campus')}>
+                  <Link to={`/campuses/${student.campus_id}`}>
                     {student.campusName}
                   </Link>
-                </td>
-              }
+                </td> }
             </tr>
-          )
-       })
-     }
+        )) }
     </tbody>
   </Table>
 )
 
 StudentTable.propTypes = {
-  campuses: PropTypes.array.isRequired,
   students: PropTypes.array.isRequired, // an array of student objects
-  showCampusName: PropTypes.bool,
-  handleClick: PropTypes.func.isRequired
+  showCampusName: PropTypes.bool.isRequired
 }
 
 export default StudentTable

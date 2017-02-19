@@ -6,9 +6,9 @@ import { Thumbnail, Row, Col } from 'react-bootstrap'
 // Returns a div with student name, email and campus (<--linked) below the
 // student's campus' logo
 
-const Student = (props) => {
+const Student = props => {
   const student = props.student
-  const campus = student.campus || {name: '', image: ''}
+  const campus = student.campus || { name: '', image: '' }
 
   return (
     <Col xs={12} sm={12} md={6} lg={6} >
@@ -33,8 +33,7 @@ const Student = (props) => {
 }
 
 Student.propTypes = {
-  student: PropTypes.object.isRequired,
-  handleClick: PropTypes.func.isRequired
+  student: PropTypes.object.isRequired
 }
 
 export default Student

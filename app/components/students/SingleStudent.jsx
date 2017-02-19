@@ -13,15 +13,9 @@ class SingleStudent extends Component {
     this.state = {
       deleting: false
     }
-
-    this.handleDelete = this.handleDelete.bind(this)
   }
 
-  componentDidMount() {
-    this.props.grabCurrentStudent(this.props.params.id)
-  }
-
-  handleDelete(event) {
+  handleDelete = event => {
     // b/c the button is linked, event in this case is to navigate to the
     // AllStudents page, so we don't want to prevent that default action!
     const id = this.props.currentStudent.id
@@ -38,8 +32,7 @@ class SingleStudent extends Component {
           <Row>
             <Student
               className="single-student-header"
-              student={this.props.currentStudent}
-              handleClick={this.props.handleClick} />
+              student={this.props.currentStudent} />
             <Col xs={12} sm={12} md={6} lg={6}>
               <div className="edit-student-form">
                 <EditStudentInfo
@@ -66,9 +59,6 @@ SingleStudent.propTypes = {
   currentStudent: PropTypes.object.isRequired,
   campuses: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  params: PropTypes.object.isRequired,
-  grabCurrentStudent: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired,
   deleteStudent: PropTypes.func.isRequired,
   updateStudent: PropTypes.func.isRequired
 }

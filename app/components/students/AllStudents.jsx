@@ -16,8 +16,7 @@ const AllStudents = (props) => (
           <StudentTable
             students={props.students}
             campuses={props.campuses}
-            showCampusName={true}
-            handleClick={props.handleClick} />
+            showCampusName={true} />
         </Col>
       </Row>
       <CreateNewStudent
@@ -34,7 +33,6 @@ AllStudents.propTypes = {
   campuses: PropTypes.array.isRequired, // an array of campus objects
   loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired
 }
 
 export default AllStudents

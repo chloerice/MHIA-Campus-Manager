@@ -38,7 +38,7 @@ router.put('/', (req, res, next) => {
     campusName: req.body.name
   }, {
     where: {
-      campusId: req.body.id
+      campus_id: req.body.id
     },
     returning: true
   })

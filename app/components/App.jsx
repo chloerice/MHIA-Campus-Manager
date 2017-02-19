@@ -1,46 +1,21 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-
-import { readStudentThenRenderIt,
-         readStudentsThenRenderAll } from '../reducers/actions/receivingStudents'
-import { readCampusThenRenderIt,
-         readCampusesThenRenderAll } from '../reducers/actions/receivingCampuses'
 
 import Navbar from './utilities/Navbar'
 
 //Returns our main application page, whose children will render based on state
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
-    this.props.grabCampuses()
-    this.props.grabStudents()
-  }
-
-  render() {
-    return (
-      <div>
-        <Navbar handleClick={this.props.handleClick} campuses={this.props.campuses}/>
-        { this.props.children && React.cloneElement(this.props.children, this.props) }
-        {/* ^this.props.children === whichever route/component is currently active */}
-      </div>
-    )
-  }
-}
+const App = props => (
+  <div>
+    <Navbar campuses={props.campuses} />
+    { props.children && React.cloneElement(props.children, props) }
+    {/* ^this.props.children === whichever route/component is currently active */}
+  </div>
+)
 
 App.propTypes = {
   campuses: PropTypes.array.isRequired,
-  students: PropTypes.array.isRequired,
-  currentStudent: PropTypes.object.isRequired,
-  currentCampus: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
-  handleClick: PropTypes.func.isRequired,
-  grabStudents: PropTypes.func.isRequired,
-  grabCampuses: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -54,15 +29,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    grabStudents: () => dispatch(readStudentsThenRenderAll()),
-    grabCampuses: () => dispatch(readCampusesThenRenderAll()),
-    handleClick: (event, id, type) => {
-      if (type === 'campus') return dispatch(readCampusThenRenderIt(id))
-      if (type === 'student') return dispatch(readStudentThenRenderIt(id))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)

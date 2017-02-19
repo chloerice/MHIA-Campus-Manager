@@ -9,16 +9,13 @@ const AllCampuses = (props) => (
   <Jumbotron>
     <Grid>
       <Row id="campus-list">
-        { props.campuses.map((campus) => (
+        { props.campuses.map(campus => (
             <Link
               key={campus.id}
-              to={`/campuses/${campus.id}`}
-              onClick={(event) => props.handleClick(event, campus.id, 'campus')}>
-                <Campus campus={campus} handleClick={props.handleClick} />
+              to={`/campuses/${campus.id}`}>
+                <Campus campus={campus} />
             </Link>
-            )
-          )
-        }
+          )) }
       </Row>
       <CreateNewCampus
         campuses={props.campuses}
@@ -32,7 +29,6 @@ const AllCampuses = (props) => (
 AllCampuses.propTypes = {
   campuses: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  handleClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired
 }
 
