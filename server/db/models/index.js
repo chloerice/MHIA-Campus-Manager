@@ -7,7 +7,7 @@
 const Campus = require('./campus')
 const Student = require('./student')
 const User = require('./user')
-const OAuth = require('./oath')
+const OAuth = require('./oauth')
 
 Student.belongsTo(Campus, { hooks: true, onUpdate: 'cascade', constraints: false })
 
