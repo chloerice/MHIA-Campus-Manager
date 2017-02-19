@@ -120,7 +120,7 @@ class EditStudentInfoForm extends Component {
         <UpdateButton
           loading={this.props.loading}
           objType={'Student'}
-          name={this.props.currentStudent.name || ''}/>
+          name={this.props.currentStudent.name || ''} />
       </Form>
     )
   }

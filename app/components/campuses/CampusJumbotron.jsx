@@ -10,11 +10,11 @@ const CampusJumbotron = (props) => (
           style={{background: 'none', border: 'none'}}
           className="campus-header-img"
           src={props.campus.image}
-          alt={'campus logo'}/>
+          alt={'campus logo'} />
       </Col>
       <Col className="campus-header" xs={12} sm={12} md={7} lg={7}>
         <p>Margaret Hamilton</p>
-        <p>Interplanetary Academy of Javascript</p>
+        <p>Interplanetary Academy of JavaScript</p>
         <h1>{props.campus.name}</h1>
       </Col>
     </Row>

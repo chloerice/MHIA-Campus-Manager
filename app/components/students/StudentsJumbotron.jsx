@@ -1,7 +1,7 @@
 // Returns a jumbotron that has a group of campus logos and a large page title
 
 import React, { PropTypes } from 'react'
-import { Jumbotron, Image, Grid, Row } from 'react-bootstrap'
+import { Image, Grid, Row } from 'react-bootstrap'
 // ** Rendered by AllStudents container via Students ** //
 // Returns a jumbotron with a row of campus logos atop a page title and subtitle
 const StudentsJumbotron = (props) => (
